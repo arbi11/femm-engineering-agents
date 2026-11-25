@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "llm_calls_in_replay": 0,
+  "meaning": "Deterministic numerical replay of the task given to a coding agent",
+  "cases": [
+    {
+      "name": "baseline",
+      "status": "passed",
+      "current_A": 1.0,
+      "linkage_Wb_turn": 0.00064694808837348,
+      "inductance_mH": 0.6469480883734801,
+      "center_Bz_mT": 1.6128641295754,
+      "stage_checks": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "passed"
+      },
+      "linkage_ratio": 1.0,
+      "inductance_ratio": 1.0,
+      "ratio_check": "passed"
+    },
+    {
+      "name": "double-current",
+      "status": "passed",
+      "current_A": 2.0,
+      "linkage_Wb_turn": 0.001293896176747,
+      "inductance_mH": 0.6469480883734801,
+      "center_Bz_mT": 3.2257282591506997,
+      "stage_checks": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "passed"
+      },
+      "linkage_ratio": 2.0000000000000617,
+      "inductance_ratio": 1.0,
+      "ratio_check": "passed"
+    },
+    {
+      "name": "double-turns",
+      "status": "solved_unassessed",
+      "current_A": 1.0,
+      "linkage_Wb_turn": 0.0025877923534939,
+      "inductance_mH": 2.5877923534939002,
+      "center_Bz_mT": 3.2257282591506997,
+      "stage_checks": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "unassessed"
+      },
+      "linkage_ratio": 3.9999999999999694,
+      "inductance_ratio": 3.9999999999999694,
+      "ratio_check": "passed"
+    }
+  ]
+}

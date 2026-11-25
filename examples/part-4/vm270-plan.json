@@ -1,0 +1,1077 @@
+{
+  "schema_version": 1,
+  "case_id": "ansys-vm270",
+  "title": "ANSYS VM270 / TEAM23: permanent magnet and coil force",
+  "family": "vm270",
+  "parameters": {
+    "current": 0.05,
+    "displacement": 0.234,
+    "domain_radius": 20.0,
+    "mesh_scale": 1.0
+  },
+  "parameter_definitions": [
+    {
+      "name": "current",
+      "unit": "A",
+      "description": "Signed winding DC current; the measured force target applies only to 0.05 A",
+      "minimum": -0.5,
+      "maximum": 0.5,
+      "default": 0.05,
+      "integer": false
+    },
+    {
+      "name": "displacement",
+      "unit": "mm",
+      "description": "Source axial displacement beyond the 0.127 mm spool end; source target applies to 0.234 mm",
+      "minimum": 0.0,
+      "maximum": 5.0,
+      "default": 0.234,
+      "integer": false
+    },
+    {
+      "name": "domain_radius",
+      "unit": "mm",
+      "description": "Radius of finite A=0 exterior adaptation; air mesh lengths are independent of radius",
+      "minimum": 10.0,
+      "maximum": 100.0,
+      "default": 20.0,
+      "integer": false
+    },
+    {
+      "name": "mesh_scale",
+      "unit": "ratio",
+      "description": "Multiplier on body and local-air mesh lengths; exterior air remains fixed at 0.1 mm",
+      "minimum": 0.25,
+      "maximum": 4.0,
+      "default": 1.0,
+      "integer": false
+    }
+  ],
+  "physics": [
+    "axisymmetric_dc_magnetostatics",
+    "permanent_magnets",
+    "linear_recoil_permeability",
+    "prescribed_series_winding",
+    "force_postprocessing"
+  ],
+  "source_ids": [
+    "ansys-vm270",
+    "ansys-vm270-input",
+    "manual5"
+  ],
+  "source_url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_vm/Hlp_V_VM270.html",
+  "knowledge_node_ids": [
+    "workflow:ansys-vm270",
+    "stage:geometry",
+    "stage:materials",
+    "stage:excitation",
+    "stage:boundaries",
+    "stage:mesh_solve",
+    "stage:solution",
+    "method:vm270_geometry",
+    "method:vm270_material_current",
+    "method:vm270_exterior_mesh",
+    "method:vm270_dual_force",
+    "method:methods_axisymmetric_coil_section",
+    "method:methods_permanent_magnet_direction",
+    "method:methods_signed_turn_circuit",
+    "method:methods_magnetic_solve_snapshot",
+    "method:methods_weighted_stress_force",
+    "primitive:mi_probdef",
+    "primitive:mi_addnode",
+    "primitive:mi_addsegment",
+    "primitive:mi_addblocklabel",
+    "primitive:mi_addmaterial",
+    "primitive:mi_addcircprop",
+    "primitive:mi_selectlabel",
+    "primitive:mi_setblockprop",
+    "primitive:mi_addarc",
+    "primitive:mi_addboundprop",
+    "primitive:mi_selectarcsegment",
+    "primitive:mi_setarcsegmentprop",
+    "primitive:mi_createmesh",
+    "primitive:mo_selectblock",
+    "primitive:mo_blockintegral",
+    "primitive:mo_clearblock",
+    "primitive:mi_saveas",
+    "primitive:mi_analyze",
+    "primitive:mi_loadsolution",
+    "primitive:mo_getpointvalues",
+    "primitive:mo_getcircuitproperties",
+    "primitive:mi_clearselected"
+  ],
+  "knowledge_sources": [
+    {
+      "id": "ansys-vm270",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_vm/Hlp_V_VM270.html",
+      "sha256": "79b241e75b82b6101ee5d2710bb6198a24992e4878e59e6c3e2b450341870f41"
+    },
+    {
+      "id": "ansys-vm270-input",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_vm/Hlp_V_VM270TXT.html",
+      "sha256": "8f432f4ac2ca7d5030a03b7faf039ae622d08fb10c60fa72601f777c42a39631"
+    },
+    {
+      "id": "manual5",
+      "url": "https://femm.info/doku/lib/exe/fetch.php?media=femm-qt%3Adocs%3Amanual.pdf",
+      "sha256": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+    }
+  ],
+  "knowledge_artifacts": [],
+  "recipe_bindings": {
+    "geometry": "method:vm270_geometry",
+    "solve": "method:methods_magnetic_solve_snapshot",
+    "postprocess": "method:vm270_dual_force"
+  },
+  "source_model_sha256": null,
+  "source_model_data_sha256": null,
+  "assumptions": [
+    "DC magnetostatics; source material laws are retained.",
+    "No external model or downloaded source script is executed.",
+    "Axisymmetric millimeter geometry follows the public ANSYS VM270 input dimensions, with a 280-turn series coil at 50 mA and axial magnetization.",
+    "Magnet permeability is calculated from the source input expression Br/(mu0*Hc), retaining Br=1.02 T and Hc=720000 A/m rather than the slightly inconsistent rounded printed permeability.",
+    "Brass and air have relative permeability one in this static model; the nonmagnetic spool has no separate magnetic interface.",
+    "The measured target 1.150*9.81e-3 N is retained; the table-rounded 0.0113 N and ANSYS numerical result 0.0112 N are separate comparisons.",
+    "Source infinite elements are replaced with an explicitly finite A=0 semicircle. Local and exterior air mesh lengths are independent of domain radius; numerical regions contain identical air and impose no physical boundary constraint.",
+    "The graded force-mesh settings were selected through recorded refinement; failed coarse force estimates remain in the audit."
+  ],
+  "limits": [
+    "A passing target check is not a general convergence study or certification of a machine design.",
+    "Magnet weighted-stress force and coil Lorentz force must both match the signed measured targets, with an independent action-reaction and coil-estimator check.",
+    "Local stress-force estimates need much finer mesh than the coil Lorentz integral. A single solve is not a convergence certificate."
+  ],
+  "frozen_reference": {
+    "metric": "force_magnet_z_N",
+    "value": 0.011281499999999998,
+    "kind": "published_measured_force",
+    "relative_tolerance": 0.02,
+    "source_locator": "VM270 input listing measured FY_M=1.150*9.81e-3 N at displacement0.234mm, I50mA,N280; comparison table rounds this to0.0113N.",
+    "applicable": true,
+    "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+  },
+  "frozen_references": [
+    {
+      "metric": "force_magnet_z_N",
+      "value": 0.011281499999999998,
+      "kind": "published_measured_force",
+      "relative_tolerance": 0.02,
+      "source_locator": "VM270 input listing measured FY_M=1.150*9.81e-3 N at displacement0.234mm, I50mA,N280; comparison table rounds this to0.0113N.",
+      "applicable": true,
+      "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+    },
+    {
+      "metric": "force_coil_z_N",
+      "value": -0.011281499999999998,
+      "kind": "published_measured_force",
+      "relative_tolerance": 0.02,
+      "source_locator": "Equal opposite axial coil Lorentz force in the VM270 measured-target comparison.",
+      "applicable": true,
+      "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+    }
+  ],
+  "comparators": [
+    {
+      "kind": "published_ansys_result",
+      "metric": "force_magnet_z_N",
+      "value": 0.0112,
+      "unit": "N",
+      "used_for_acceptance": false
+    },
+    {
+      "kind": "published_table_rounded_measured_force",
+      "metric": "force_magnet_z_N",
+      "value": 0.0113,
+      "unit": "N",
+      "used_for_acceptance": false
+    }
+  ],
+  "geometry": {
+    "nodes": [
+      {
+        "id": "node:0",
+        "x": 0.0,
+        "y": 0.0,
+        "group": 0,
+        "operation_id": "op:0"
+      },
+      {
+        "id": "node:1",
+        "x": 1.4986,
+        "y": 0.0,
+        "group": 0,
+        "operation_id": "op:1"
+      },
+      {
+        "id": "node:2",
+        "x": 1.4986,
+        "y": 1.6,
+        "group": 0,
+        "operation_id": "op:3"
+      },
+      {
+        "id": "node:3",
+        "x": 0.0,
+        "y": 1.6,
+        "group": 0,
+        "operation_id": "op:5"
+      },
+      {
+        "id": "node:4",
+        "x": 1.524,
+        "y": 1.961,
+        "group": 0,
+        "operation_id": "op:8"
+      },
+      {
+        "id": "node:5",
+        "x": 1.9812,
+        "y": 1.961,
+        "group": 0,
+        "operation_id": "op:9"
+      },
+      {
+        "id": "node:6",
+        "x": 1.9812,
+        "y": 3.4850000000000003,
+        "group": 0,
+        "operation_id": "op:11"
+      },
+      {
+        "id": "node:7",
+        "x": 1.524,
+        "y": 3.4850000000000003,
+        "group": 0,
+        "operation_id": "op:13"
+      },
+      {
+        "id": "node:8",
+        "x": 0.0,
+        "y": -1.0,
+        "group": 0,
+        "operation_id": "op:16"
+      },
+      {
+        "id": "node:9",
+        "x": 4.0,
+        "y": -1.0,
+        "group": 0,
+        "operation_id": "op:17"
+      },
+      {
+        "id": "node:10",
+        "x": 4.0,
+        "y": 4.485,
+        "group": 0,
+        "operation_id": "op:19"
+      },
+      {
+        "id": "node:11",
+        "x": 0.0,
+        "y": 4.485,
+        "group": 0,
+        "operation_id": "op:21"
+      },
+      {
+        "id": "node:12",
+        "x": 0.0,
+        "y": -0.3,
+        "group": 0,
+        "operation_id": "op:23"
+      },
+      {
+        "id": "node:13",
+        "x": 1.7986,
+        "y": -0.3,
+        "group": 0,
+        "operation_id": "op:24"
+      },
+      {
+        "id": "node:14",
+        "x": 1.7986,
+        "y": 1.9000000000000001,
+        "group": 0,
+        "operation_id": "op:26"
+      },
+      {
+        "id": "node:15",
+        "x": 0.0,
+        "y": 1.9000000000000001,
+        "group": 0,
+        "operation_id": "op:28"
+      },
+      {
+        "id": "node:16",
+        "x": 0.0,
+        "y": -19.466666666666665,
+        "group": 0,
+        "operation_id": "op:30"
+      },
+      {
+        "id": "node:17",
+        "x": 0.0,
+        "y": 20.533333333333335,
+        "group": 0,
+        "operation_id": "op:31"
+      }
+    ],
+    "segments": [
+      {
+        "id": "segment:0",
+        "n0": 0,
+        "n1": 1,
+        "group": 0,
+        "operation_id": "op:2"
+      },
+      {
+        "id": "segment:1",
+        "n0": 1,
+        "n1": 2,
+        "group": 0,
+        "operation_id": "op:4"
+      },
+      {
+        "id": "segment:2",
+        "n0": 2,
+        "n1": 3,
+        "group": 0,
+        "operation_id": "op:6"
+      },
+      {
+        "id": "segment:3",
+        "n0": 3,
+        "n1": 0,
+        "group": 0,
+        "operation_id": "op:7"
+      },
+      {
+        "id": "segment:4",
+        "n0": 4,
+        "n1": 5,
+        "group": 0,
+        "operation_id": "op:10"
+      },
+      {
+        "id": "segment:5",
+        "n0": 5,
+        "n1": 6,
+        "group": 0,
+        "operation_id": "op:12"
+      },
+      {
+        "id": "segment:6",
+        "n0": 6,
+        "n1": 7,
+        "group": 0,
+        "operation_id": "op:14"
+      },
+      {
+        "id": "segment:7",
+        "n0": 7,
+        "n1": 4,
+        "group": 0,
+        "operation_id": "op:15"
+      },
+      {
+        "id": "segment:8",
+        "n0": 8,
+        "n1": 9,
+        "group": 0,
+        "operation_id": "op:18"
+      },
+      {
+        "id": "segment:9",
+        "n0": 9,
+        "n1": 10,
+        "group": 0,
+        "operation_id": "op:20"
+      },
+      {
+        "id": "segment:10",
+        "n0": 10,
+        "n1": 11,
+        "group": 0,
+        "operation_id": "op:22"
+      },
+      {
+        "id": "segment:11",
+        "n0": 12,
+        "n1": 13,
+        "group": 0,
+        "operation_id": "op:25"
+      },
+      {
+        "id": "segment:12",
+        "n0": 13,
+        "n1": 14,
+        "group": 0,
+        "operation_id": "op:27"
+      },
+      {
+        "id": "segment:13",
+        "n0": 14,
+        "n1": 15,
+        "group": 0,
+        "operation_id": "op:29"
+      },
+      {
+        "id": "segment:14",
+        "n0": 16,
+        "n1": 8,
+        "group": 0,
+        "operation_id": "op:33"
+      },
+      {
+        "id": "segment:15",
+        "n0": 8,
+        "n1": 12,
+        "group": 0,
+        "operation_id": "op:34"
+      },
+      {
+        "id": "segment:16",
+        "n0": 12,
+        "n1": 0,
+        "group": 0,
+        "operation_id": "op:35"
+      },
+      {
+        "id": "segment:17",
+        "n0": 3,
+        "n1": 15,
+        "group": 0,
+        "operation_id": "op:36"
+      },
+      {
+        "id": "segment:18",
+        "n0": 15,
+        "n1": 11,
+        "group": 0,
+        "operation_id": "op:37"
+      },
+      {
+        "id": "segment:19",
+        "n0": 11,
+        "n1": 17,
+        "group": 0,
+        "operation_id": "op:38"
+      }
+    ],
+    "arcs": [
+      {
+        "id": "arc:0",
+        "n0": 16,
+        "n1": 17,
+        "angle": 180,
+        "max_segment_degrees": 5.0,
+        "group": 0,
+        "operation_id": "op:32"
+      }
+    ],
+    "labels": [
+      {
+        "id": "label:0",
+        "x": 0.7493,
+        "y": 0.8,
+        "name": "SmCo magnet",
+        "material": null,
+        "operation_id": "op:39"
+      },
+      {
+        "id": "label:1",
+        "x": 1.7526000000000002,
+        "y": 2.723,
+        "name": "280-turn copper coil",
+        "material": null,
+        "operation_id": "op:40"
+      },
+      {
+        "id": "label:2",
+        "x": 1.6485999999999998,
+        "y": 0.8,
+        "name": "fine air envelope",
+        "material": null,
+        "operation_id": "op:41"
+      },
+      {
+        "id": "label:3",
+        "x": 0.1,
+        "y": -0.5,
+        "name": "fine local air",
+        "material": null,
+        "operation_id": "op:42"
+      },
+      {
+        "id": "label:4",
+        "x": 5.0,
+        "y": 0.5333333333333333,
+        "name": "air and nonmagnetic spool",
+        "material": null,
+        "operation_id": "op:43"
+      }
+    ],
+    "operations": [
+      {
+        "id": "op:0",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          0.0
+        ],
+        "geometry_ids": [
+          "node:0"
+        ]
+      },
+      {
+        "id": "op:1",
+        "function": "mi_addnode",
+        "arguments": [
+          1.4986,
+          0.0
+        ],
+        "geometry_ids": [
+          "node:1"
+        ]
+      },
+      {
+        "id": "op:2",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          0,
+          1.4986,
+          0
+        ],
+        "geometry_ids": [
+          "segment:0"
+        ]
+      },
+      {
+        "id": "op:3",
+        "function": "mi_addnode",
+        "arguments": [
+          1.4986,
+          1.6
+        ],
+        "geometry_ids": [
+          "node:2"
+        ]
+      },
+      {
+        "id": "op:4",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.4986,
+          0,
+          1.4986,
+          1.6
+        ],
+        "geometry_ids": [
+          "segment:1"
+        ]
+      },
+      {
+        "id": "op:5",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          1.6
+        ],
+        "geometry_ids": [
+          "node:3"
+        ]
+      },
+      {
+        "id": "op:6",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.4986,
+          1.6,
+          0,
+          1.6
+        ],
+        "geometry_ids": [
+          "segment:2"
+        ]
+      },
+      {
+        "id": "op:7",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          1.6,
+          0,
+          0
+        ],
+        "geometry_ids": [
+          "segment:3"
+        ]
+      },
+      {
+        "id": "op:8",
+        "function": "mi_addnode",
+        "arguments": [
+          1.524,
+          1.961
+        ],
+        "geometry_ids": [
+          "node:4"
+        ]
+      },
+      {
+        "id": "op:9",
+        "function": "mi_addnode",
+        "arguments": [
+          1.9812,
+          1.961
+        ],
+        "geometry_ids": [
+          "node:5"
+        ]
+      },
+      {
+        "id": "op:10",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.524,
+          1.961,
+          1.9812,
+          1.961
+        ],
+        "geometry_ids": [
+          "segment:4"
+        ]
+      },
+      {
+        "id": "op:11",
+        "function": "mi_addnode",
+        "arguments": [
+          1.9812,
+          3.4850000000000003
+        ],
+        "geometry_ids": [
+          "node:6"
+        ]
+      },
+      {
+        "id": "op:12",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.9812,
+          1.961,
+          1.9812,
+          3.4850000000000003
+        ],
+        "geometry_ids": [
+          "segment:5"
+        ]
+      },
+      {
+        "id": "op:13",
+        "function": "mi_addnode",
+        "arguments": [
+          1.524,
+          3.4850000000000003
+        ],
+        "geometry_ids": [
+          "node:7"
+        ]
+      },
+      {
+        "id": "op:14",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.9812,
+          3.4850000000000003,
+          1.524,
+          3.4850000000000003
+        ],
+        "geometry_ids": [
+          "segment:6"
+        ]
+      },
+      {
+        "id": "op:15",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.524,
+          3.4850000000000003,
+          1.524,
+          1.961
+        ],
+        "geometry_ids": [
+          "segment:7"
+        ]
+      },
+      {
+        "id": "op:16",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          -1.0
+        ],
+        "geometry_ids": [
+          "node:8"
+        ]
+      },
+      {
+        "id": "op:17",
+        "function": "mi_addnode",
+        "arguments": [
+          4.0,
+          -1.0
+        ],
+        "geometry_ids": [
+          "node:9"
+        ]
+      },
+      {
+        "id": "op:18",
+        "function": "mi_addsegment",
+        "arguments": [
+          0.0,
+          -1.0,
+          4.0,
+          -1.0
+        ],
+        "geometry_ids": [
+          "segment:8"
+        ]
+      },
+      {
+        "id": "op:19",
+        "function": "mi_addnode",
+        "arguments": [
+          4.0,
+          4.485
+        ],
+        "geometry_ids": [
+          "node:10"
+        ]
+      },
+      {
+        "id": "op:20",
+        "function": "mi_addsegment",
+        "arguments": [
+          4.0,
+          -1.0,
+          4.0,
+          4.485
+        ],
+        "geometry_ids": [
+          "segment:9"
+        ]
+      },
+      {
+        "id": "op:21",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          4.485
+        ],
+        "geometry_ids": [
+          "node:11"
+        ]
+      },
+      {
+        "id": "op:22",
+        "function": "mi_addsegment",
+        "arguments": [
+          4.0,
+          4.485,
+          0.0,
+          4.485
+        ],
+        "geometry_ids": [
+          "segment:10"
+        ]
+      },
+      {
+        "id": "op:23",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          -0.3
+        ],
+        "geometry_ids": [
+          "node:12"
+        ]
+      },
+      {
+        "id": "op:24",
+        "function": "mi_addnode",
+        "arguments": [
+          1.7986,
+          -0.3
+        ],
+        "geometry_ids": [
+          "node:13"
+        ]
+      },
+      {
+        "id": "op:25",
+        "function": "mi_addsegment",
+        "arguments": [
+          0.0,
+          -0.3,
+          1.7986,
+          -0.3
+        ],
+        "geometry_ids": [
+          "segment:11"
+        ]
+      },
+      {
+        "id": "op:26",
+        "function": "mi_addnode",
+        "arguments": [
+          1.7986,
+          1.9000000000000001
+        ],
+        "geometry_ids": [
+          "node:14"
+        ]
+      },
+      {
+        "id": "op:27",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.7986,
+          -0.3,
+          1.7986,
+          1.9000000000000001
+        ],
+        "geometry_ids": [
+          "segment:12"
+        ]
+      },
+      {
+        "id": "op:28",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          1.9000000000000001
+        ],
+        "geometry_ids": [
+          "node:15"
+        ]
+      },
+      {
+        "id": "op:29",
+        "function": "mi_addsegment",
+        "arguments": [
+          1.7986,
+          1.9000000000000001,
+          0.0,
+          1.9000000000000001
+        ],
+        "geometry_ids": [
+          "segment:13"
+        ]
+      },
+      {
+        "id": "op:30",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          -19.466666666666665
+        ],
+        "geometry_ids": [
+          "node:16"
+        ]
+      },
+      {
+        "id": "op:31",
+        "function": "mi_addnode",
+        "arguments": [
+          0.0,
+          20.533333333333335
+        ],
+        "geometry_ids": [
+          "node:17"
+        ]
+      },
+      {
+        "id": "op:32",
+        "function": "mi_addarc",
+        "arguments": [
+          0,
+          -19.466666666666665,
+          0,
+          20.533333333333335,
+          180,
+          5
+        ],
+        "geometry_ids": [
+          "arc:0"
+        ]
+      },
+      {
+        "id": "op:33",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          -19.466666666666665,
+          0,
+          -1.0
+        ],
+        "geometry_ids": [
+          "segment:14"
+        ]
+      },
+      {
+        "id": "op:34",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          -1.0,
+          0,
+          -0.3
+        ],
+        "geometry_ids": [
+          "segment:15"
+        ]
+      },
+      {
+        "id": "op:35",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          -0.3,
+          0,
+          0.0
+        ],
+        "geometry_ids": [
+          "segment:16"
+        ]
+      },
+      {
+        "id": "op:36",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          1.6,
+          0,
+          1.9000000000000001
+        ],
+        "geometry_ids": [
+          "segment:17"
+        ]
+      },
+      {
+        "id": "op:37",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          1.9000000000000001,
+          0,
+          4.485
+        ],
+        "geometry_ids": [
+          "segment:18"
+        ]
+      },
+      {
+        "id": "op:38",
+        "function": "mi_addsegment",
+        "arguments": [
+          0,
+          4.485,
+          0,
+          20.533333333333335
+        ],
+        "geometry_ids": [
+          "segment:19"
+        ]
+      },
+      {
+        "id": "op:39",
+        "function": "mi_addblocklabel",
+        "arguments": [
+          0.7493,
+          0.8
+        ],
+        "geometry_ids": [
+          "label:0"
+        ]
+      },
+      {
+        "id": "op:40",
+        "function": "mi_addblocklabel",
+        "arguments": [
+          1.7526000000000002,
+          2.723
+        ],
+        "geometry_ids": [
+          "label:1"
+        ]
+      },
+      {
+        "id": "op:41",
+        "function": "mi_addblocklabel",
+        "arguments": [
+          1.6485999999999998,
+          0.8
+        ],
+        "geometry_ids": [
+          "label:2"
+        ]
+      },
+      {
+        "id": "op:42",
+        "function": "mi_addblocklabel",
+        "arguments": [
+          0.1,
+          -0.5
+        ],
+        "geometry_ids": [
+          "label:3"
+        ]
+      },
+      {
+        "id": "op:43",
+        "function": "mi_addblocklabel",
+        "arguments": [
+          5.0,
+          0.5333333333333333
+        ],
+        "geometry_ids": [
+          "label:4"
+        ]
+      }
+    ],
+    "metadata": {
+      "LengthUnits": "millimeters",
+      "ProblemType": "axisymmetric"
+    },
+    "parameters": {
+      "current": 0.05,
+      "displacement": 0.234,
+      "domain_radius": 20.0,
+      "mesh_scale": 1.0
+    },
+    "source_ids": [
+      "ansys-vm270",
+      "ansys-vm270-input",
+      "manual5"
+    ]
+  },
+  "preview_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-2.4 -22.9333333333 24.8 44.8\" role=\"img\" aria-label=\"Exact construction geometry\"><title>Exact lines and circular arcs; a geometry preview does not establish numerical accuracy.</title><g fill=\"none\" stroke=\"#3a746e\" stroke-width=\"0.1\" stroke-linecap=\"round\"><line id=\"segment:0\" data-geometry-id=\"segment:0\" data-operation-id=\"op:2\" x1=\"0\" y1=\"-0\" x2=\"1.4986\" y2=\"-0\"><title>segment:0</title></line><line id=\"segment:1\" data-geometry-id=\"segment:1\" data-operation-id=\"op:4\" x1=\"1.4986\" y1=\"-0\" x2=\"1.4986\" y2=\"-1.6\"><title>segment:1</title></line><line id=\"segment:2\" data-geometry-id=\"segment:2\" data-operation-id=\"op:6\" x1=\"1.4986\" y1=\"-1.6\" x2=\"0\" y2=\"-1.6\"><title>segment:2</title></line><line id=\"segment:3\" data-geometry-id=\"segment:3\" data-operation-id=\"op:7\" x1=\"0\" y1=\"-1.6\" x2=\"0\" y2=\"-0\"><title>segment:3</title></line><line id=\"segment:4\" data-geometry-id=\"segment:4\" data-operation-id=\"op:10\" x1=\"1.524\" y1=\"-1.961\" x2=\"1.9812\" y2=\"-1.961\"><title>segment:4</title></line><line id=\"segment:5\" data-geometry-id=\"segment:5\" data-operation-id=\"op:12\" x1=\"1.9812\" y1=\"-1.961\" x2=\"1.9812\" y2=\"-3.485\"><title>segment:5</title></line><line id=\"segment:6\" data-geometry-id=\"segment:6\" data-operation-id=\"op:14\" x1=\"1.9812\" y1=\"-3.485\" x2=\"1.524\" y2=\"-3.485\"><title>segment:6</title></line><line id=\"segment:7\" data-geometry-id=\"segment:7\" data-operation-id=\"op:15\" x1=\"1.524\" y1=\"-3.485\" x2=\"1.524\" y2=\"-1.961\"><title>segment:7</title></line><line id=\"segment:8\" data-geometry-id=\"segment:8\" data-operation-id=\"op:18\" x1=\"0\" y1=\"1\" x2=\"4\" y2=\"1\"><title>segment:8</title></line><line id=\"segment:9\" data-geometry-id=\"segment:9\" data-operation-id=\"op:20\" x1=\"4\" y1=\"1\" x2=\"4\" y2=\"-4.485\"><title>segment:9</title></line><line id=\"segment:10\" data-geometry-id=\"segment:10\" data-operation-id=\"op:22\" x1=\"4\" y1=\"-4.485\" x2=\"0\" y2=\"-4.485\"><title>segment:10</title></line><line id=\"segment:11\" data-geometry-id=\"segment:11\" data-operation-id=\"op:25\" x1=\"0\" y1=\"0.3\" x2=\"1.7986\" y2=\"0.3\"><title>segment:11</title></line><line id=\"segment:12\" data-geometry-id=\"segment:12\" data-operation-id=\"op:27\" x1=\"1.7986\" y1=\"0.3\" x2=\"1.7986\" y2=\"-1.9\"><title>segment:12</title></line><line id=\"segment:13\" data-geometry-id=\"segment:13\" data-operation-id=\"op:29\" x1=\"1.7986\" y1=\"-1.9\" x2=\"0\" y2=\"-1.9\"><title>segment:13</title></line><line id=\"segment:14\" data-geometry-id=\"segment:14\" data-operation-id=\"op:33\" x1=\"0\" y1=\"19.4666666667\" x2=\"0\" y2=\"1\"><title>segment:14</title></line><line id=\"segment:15\" data-geometry-id=\"segment:15\" data-operation-id=\"op:34\" x1=\"0\" y1=\"1\" x2=\"0\" y2=\"0.3\"><title>segment:15</title></line><line id=\"segment:16\" data-geometry-id=\"segment:16\" data-operation-id=\"op:35\" x1=\"0\" y1=\"0.3\" x2=\"0\" y2=\"-0\"><title>segment:16</title></line><line id=\"segment:17\" data-geometry-id=\"segment:17\" data-operation-id=\"op:36\" x1=\"0\" y1=\"-1.6\" x2=\"0\" y2=\"-1.9\"><title>segment:17</title></line><line id=\"segment:18\" data-geometry-id=\"segment:18\" data-operation-id=\"op:37\" x1=\"0\" y1=\"-1.9\" x2=\"0\" y2=\"-4.485\"><title>segment:18</title></line><line id=\"segment:19\" data-geometry-id=\"segment:19\" data-operation-id=\"op:38\" x1=\"0\" y1=\"-4.485\" x2=\"0\" y2=\"-20.5333333333\"><title>segment:19</title></line><path id=\"arc:0\" data-geometry-id=\"arc:0\" data-operation-id=\"op:32\" d=\"M 0,19.4666666667 A 20,20 0 0 0 0,-20.5333333333\"><title>arc:0: 180 degrees</title></path></g><circle id=\"node:0\" data-geometry-id=\"node:0\" data-operation-id=\"op:0\" cx=\"0\" cy=\"-0\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:0</title></circle><circle id=\"node:1\" data-geometry-id=\"node:1\" data-operation-id=\"op:1\" cx=\"1.4986\" cy=\"-0\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:1</title></circle><circle id=\"node:2\" data-geometry-id=\"node:2\" data-operation-id=\"op:3\" cx=\"1.4986\" cy=\"-1.6\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:2</title></circle><circle id=\"node:3\" data-geometry-id=\"node:3\" data-operation-id=\"op:5\" cx=\"0\" cy=\"-1.6\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:3</title></circle><circle id=\"node:4\" data-geometry-id=\"node:4\" data-operation-id=\"op:8\" cx=\"1.524\" cy=\"-1.961\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:4</title></circle><circle id=\"node:5\" data-geometry-id=\"node:5\" data-operation-id=\"op:9\" cx=\"1.9812\" cy=\"-1.961\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:5</title></circle><circle id=\"node:6\" data-geometry-id=\"node:6\" data-operation-id=\"op:11\" cx=\"1.9812\" cy=\"-3.485\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:6</title></circle><circle id=\"node:7\" data-geometry-id=\"node:7\" data-operation-id=\"op:13\" cx=\"1.524\" cy=\"-3.485\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:7</title></circle><circle id=\"node:8\" data-geometry-id=\"node:8\" data-operation-id=\"op:16\" cx=\"0\" cy=\"1\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:8</title></circle><circle id=\"node:9\" data-geometry-id=\"node:9\" data-operation-id=\"op:17\" cx=\"4\" cy=\"1\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:9</title></circle><circle id=\"node:10\" data-geometry-id=\"node:10\" data-operation-id=\"op:19\" cx=\"4\" cy=\"-4.485\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:10</title></circle><circle id=\"node:11\" data-geometry-id=\"node:11\" data-operation-id=\"op:21\" cx=\"0\" cy=\"-4.485\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:11</title></circle><circle id=\"node:12\" data-geometry-id=\"node:12\" data-operation-id=\"op:23\" cx=\"0\" cy=\"0.3\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:12</title></circle><circle id=\"node:13\" data-geometry-id=\"node:13\" data-operation-id=\"op:24\" cx=\"1.7986\" cy=\"0.3\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:13</title></circle><circle id=\"node:14\" data-geometry-id=\"node:14\" data-operation-id=\"op:26\" cx=\"1.7986\" cy=\"-1.9\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:14</title></circle><circle id=\"node:15\" data-geometry-id=\"node:15\" data-operation-id=\"op:28\" cx=\"0\" cy=\"-1.9\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:15</title></circle><circle id=\"node:16\" data-geometry-id=\"node:16\" data-operation-id=\"op:30\" cx=\"0\" cy=\"19.4666666667\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:16</title></circle><circle id=\"node:17\" data-geometry-id=\"node:17\" data-operation-id=\"op:31\" cx=\"0\" cy=\"-20.5333333333\" r=\"0.0888888888889\" fill=\"#3a746e\"><title>node:17</title></circle><circle id=\"label:0\" data-geometry-id=\"label:0\" data-operation-id=\"op:39\" cx=\"0.7493\" cy=\"-0.8\" r=\"0.222222222222\" fill=\"#c28b37\"><title>SmCo magnet</title></circle><circle id=\"label:1\" data-geometry-id=\"label:1\" data-operation-id=\"op:40\" cx=\"1.7526\" cy=\"-2.723\" r=\"0.222222222222\" fill=\"#c28b37\"><title>280-turn copper coil</title></circle><circle id=\"label:2\" data-geometry-id=\"label:2\" data-operation-id=\"op:41\" cx=\"1.6486\" cy=\"-0.8\" r=\"0.222222222222\" fill=\"#c28b37\"><title>fine air envelope</title></circle><circle id=\"label:3\" data-geometry-id=\"label:3\" data-operation-id=\"op:42\" cx=\"0.1\" cy=\"0.5\" r=\"0.222222222222\" fill=\"#c28b37\"><title>fine local air</title></circle><circle id=\"label:4\" data-geometry-id=\"label:4\" data-operation-id=\"op:43\" cx=\"5\" cy=\"-0.533333333333\" r=\"0.222222222222\" fill=\"#c28b37\"><title>air and nonmagnetic spool</title></circle></svg>",
+  "lua": "newdocument(0)\nmi_probdef(0,\"millimeters\",\"axi\",1.0000000000000001e-09,1,30)\nmi_addnode(0,0)\nmi_addnode(1.4985999999999999,0)\nmi_addsegment(0,0,1.4985999999999999,0)\nmi_addnode(1.4985999999999999,1.6000000000000001)\nmi_addsegment(1.4985999999999999,0,1.4985999999999999,1.6000000000000001)\nmi_addnode(0,1.6000000000000001)\nmi_addsegment(1.4985999999999999,1.6000000000000001,0,1.6000000000000001)\nmi_addsegment(0,1.6000000000000001,0,0)\nmi_addnode(1.524,1.9610000000000001)\nmi_addnode(1.9812000000000001,1.9610000000000001)\nmi_addsegment(1.524,1.9610000000000001,1.9812000000000001,1.9610000000000001)\nmi_addnode(1.9812000000000001,3.4850000000000003)\nmi_addsegment(1.9812000000000001,1.9610000000000001,1.9812000000000001,3.4850000000000003)\nmi_addnode(1.524,3.4850000000000003)\nmi_addsegment(1.9812000000000001,3.4850000000000003,1.524,3.4850000000000003)\nmi_addsegment(1.524,3.4850000000000003,1.524,1.9610000000000001)\nmi_addnode(0,-1)\nmi_addnode(4,-1)\nmi_addsegment(0,-1,4,-1)\nmi_addnode(4,4.4850000000000003)\nmi_addsegment(4,-1,4,4.4850000000000003)\nmi_addnode(0,4.4850000000000003)\nmi_addsegment(4,4.4850000000000003,0,4.4850000000000003)\nmi_addnode(0,-0.29999999999999999)\nmi_addnode(1.7986,-0.29999999999999999)\nmi_addsegment(0,-0.29999999999999999,1.7986,-0.29999999999999999)\nmi_addnode(1.7986,1.9000000000000001)\nmi_addsegment(1.7986,-0.29999999999999999,1.7986,1.9000000000000001)\nmi_addnode(0,1.9000000000000001)\nmi_addsegment(1.7986,1.9000000000000001,0,1.9000000000000001)\nmi_addnode(0,-19.466666666666665)\nmi_addnode(0,20.533333333333335)\nmi_addarc(0,-19.466666666666665,0,20.533333333333335,180,5)\nmi_addsegment(0,-19.466666666666665,0,-1)\nmi_addsegment(0,-1,0,-0.29999999999999999)\nmi_addsegment(0,-0.29999999999999999,0,0)\nmi_addsegment(0,1.6000000000000001,0,1.9000000000000001)\nmi_addsegment(0,1.9000000000000001,0,4.4850000000000003)\nmi_addsegment(0,4.4850000000000003,0,20.533333333333335)\nmi_addblocklabel(0.74929999999999997,0.80000000000000004)\nmi_addblocklabel(1.7526000000000002,2.7229999999999999)\nmi_addblocklabel(1.6485999999999998,0.80000000000000004)\nmi_addblocklabel(0.10000000000000001,-0.5)\nmi_addblocklabel(5,0.53333333333333333)\nmi_addmaterial(\"air\",1,1,0,0,0)\nmi_addmaterial(\"copper\",1,1,0,0,0)\nmi_addmaterial(\"SmCo\",1.1273475135675921,1.1273475135675921,720000,0,0)\nmi_addcircprop(\"icoil\",0.050000000000000003,1)\nmi_selectlabel(0.74929999999999997,0.80000000000000004)\nmi_setblockprop(\"SmCo\",0,0.0050000000000000001,\"<None>\",90,1,1)\nmi_clearselected()\nmi_selectlabel(1.7526000000000002,2.7229999999999999)\nmi_setblockprop(\"copper\",0,0.01,\"icoil\",0,2,280)\nmi_clearselected()\nmi_selectlabel(1.6485999999999998,0.80000000000000004)\nmi_setblockprop(\"air\",0,0.0050000000000000001,\"<None>\",0,0,1)\nmi_clearselected()\nmi_selectlabel(0.10000000000000001,-0.5)\nmi_setblockprop(\"air\",0,0.01,\"<None>\",0,0,1)\nmi_clearselected()\nmi_selectlabel(5,0.53333333333333333)\nmi_setblockprop(\"air\",0,0.10000000000000001,\"<None>\",0,0,1)\nmi_clearselected()\nmi_addboundprop(\"A=0\",0,0,0,0,0,0,0,0,0)\nmi_selectarcsegment(20,0.53333333333333333)\nmi_setarcsegmentprop(1,\"A=0\",0,0)\nmi_clearselected()\nmi_saveas(\"model.fem\")\nout=openfile(\"geometry-completed.txt\",\"w\")\nwrite(out,\"geometry saved\\n\")\nclosefile(out)\nmi_createmesh()\nout=openfile(\"mesh-completed.txt\",\"w\")\nwrite(out,\"mesh completed\\n\")\nclosefile(out)\nmi_analyze(1)\nmi_loadsolution()\nout=openfile(\"metrics.csv\",\"w\")\nwrite(out,\"metric,value,unit\\n\")\nmo_selectblock(0.74929999999999997,0.80000000000000004)\nmagnet_fz=mo_blockintegral(19)\nmo_clearblock()\nmo_selectblock(1.7526000000000002,2.7229999999999999)\ncoil_lorentz_fz=mo_blockintegral(12)\ncoil_wst_fz=mo_blockintegral(19)\nmo_clearblock()\namps,volts,linkage=mo_getcircuitproperties(\"icoil\")\nwrite(out,\"force_magnet_z_N,\",magnet_fz,\",N\\n\")\nwrite(out,\"force_coil_z_N,\",coil_lorentz_fz,\",N\\n\")\nwrite(out,\"force_coil_wst_z_N,\",coil_wst_fz,\",N\\n\")\nwrite(out,\"current_A,\",amps,\",A\\n\")\nwrite(out,\"flux_linkage_Wb_turn,\",linkage,\",Wb-turn\\n\")\na,bx,by=mo_getpointvalues(0.10000000000000001,0.80000000000000004)\nwrite(out,\"probe_0_field_x_T,\",bx,\",T\\n\")\nwrite(out,\"probe_0_field_y_T,\",by,\",T\\n\")\nwrite(out,\"probe_0_field_magnitude_T,\",sqrt(bx*bx+by*by),\",T\\n\")\nwrite(out,\"field_x_T,\",bx,\",T\\n\")\nwrite(out,\"field_y_T,\",by,\",T\\n\")\nwrite(out,\"field_magnitude_T,\",sqrt(bx*bx+by*by),\",T\\n\")\na,bx,by=mo_getpointvalues(1,1.7805)\nwrite(out,\"probe_1_field_x_T,\",bx,\",T\\n\")\nwrite(out,\"probe_1_field_y_T,\",by,\",T\\n\")\nwrite(out,\"probe_1_field_magnitude_T,\",sqrt(bx*bx+by*by),\",T\\n\")\nclosefile(out)\nout=openfile(\"field.csv\",\"w\")\nwrite(out,\"x,y,bx,by\\n\")\nfor row=0,24 do\ny=-1+row*0.22854166666666667\nfor col=0,24 do\nx=0+col*0.16666666666666666\nif x*x+y*y < 376.35999999999996 then\na,bx,by=mo_getpointvalues(x,y)\nwrite(out,x,\",\",y,\",\",bx,\",\",by,\"\\n\")\nend\nend\nend\nclosefile(out)\nout=openfile(\"solve-completed.txt\",\"w\")\nwrite(out,\"native field solve completed\\n\")\nclosefile(out)\nmo_close()\nmi_close()\n",
+  "probes": [
+    [
+      0.1,
+      0.8
+    ],
+    [
+      1.0,
+      1.7805
+    ]
+  ],
+  "metres_per_coordinate_unit": 0.001,
+  "requires_ai": false,
+  "numerical_convergence_verified": false,
+  "compiler_sha256": "2f7fec3129c2031cc733f436cc823917fee1691af6f95f9ba1f7629ffaab7040",
+  "catalog_sha256": "c45e283034020771251204025248121856ec31c302348e3fe7b82d679be383ae",
+  "vm270_recipe_sha256": "b9730e1b6a71e6fc6df7042cf058f070d0a7d8f1bbc3adc211034e10bebdd762",
+  "plan_sha256": "a40b4420da490d44911292f266ad28d98473ffb05151ad6c04ce232c336faab4"
+}

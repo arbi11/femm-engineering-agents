@@ -1,0 +1,101 @@
+ARTICLE 1 V4 — COMPLETE COIL EXAMPLES
+
+The main article explains the electromagnetic model. This companion holds
+installation steps and the complete code for three ways to run it.
+
+Files
+------
+coil.lua                  The complete, unchanged v3 Lua model.
+coil.py                   The same model through FEMM 5's Python binding.
+run_lua_from_python.py    Python launches the complete Lua file.
+python_command_demo.py    The short problem-definition example; no solve.
+run-linux.sh              Reproduce any complete route in an isolated container.
+
+These are native FEMM 5 examples. The Python binding is distributed with
+FEMM 5. It is different from the older pyfemm 0.1.3 package for FEMM 4.2.
+The prepared container already contains the correct binding; no pip install
+is needed for these examples.
+
+Official documentation
+------------------------
+FEMM 5 and language bindings:
+https://github.com/dcm3c/femm-qt
+Native Python binding:
+https://github.com/dcm3c/femm-qt/blob/main/pyfemm/femm.py
+Legacy Lua launcher:
+https://github.com/dcm3c/femm-qt/blob/main/luafemm/femm-lua.pdf
+Classical pyFEMM documentation for readers using FEMM 4.2:
+https://www.femm.info/doku/doku.php?id=pyFEMM
+
+One-time prepared-container build
+----------------------------------
+If femm-brain-native:tutorial already exists, skip this section.
+Prerequisites: Git, Docker, and permission to use the Docker daemon.
+
+git clone https://github.com/arbi11/research_extender.git femm-tutorial
+cd femm-tutorial
+git checkout 59f79815c6703979201cab0d195f304f70786c8a
+docker build --target femm-build -t femm-brain-native:tutorial \
+  -f femm_assistant/Dockerfile femm_assistant
+
+Return to this companion folder for the commands below. Solves run with no
+external network, using a writable result folder and a read-only container.
+The native Python binding communicates with the engine over loopback inside
+the isolated container; no host port is exposed.
+
+Run the complete Lua example
+-----------------------------
+bash run-linux.sh results-lua lua
+
+Run the complete Python construction
+--------------------------------------
+bash run-linux.sh results-python python
+
+Run the same Lua file from Python
+----------------------------------
+bash run-linux.sh results-python-lua python-lua
+
+Each output directory must be new. The script preserves the copied inputs,
+coil.fem, coil.ans and results.csv. Lua also exports the field samples used
+for the figures. The Python construction writes the circuit and center-field
+results; it does not create a second set of field plots.
+
+Read the measurements
+------------------------
+The results.csv inductance is in henries. Multiply by 1,000 for millihenries.
+Expected baseline: approximately 0.646948 mH at 100 turns and 1 A.
+Expected center axial field: approximately 1.612864 mT.
+Expected baseline mesh: 35,388 elements.
+
+The complete native Python construction and the Python-launched Lua file were
+both executed for v4. Their saved model and solution files are byte-identical.
+Their CSV text uses different floating-point formatting; that is not a solver
+disagreement. Exact values and hashes are in verification/python-frontend-results.json
+at the review-package root.
+
+Use with your own FEMM 5 installation
+--------------------------------------
+With the native FEMM 5 Python binding importable and its executable directory
+configured as required by that binding, run coil.py from a new writable
+working folder. It creates a model and writes results in the current folder.
+
+To launch the Lua file from Python, place coil.lua in that working folder and
+make femm-lua available on PATH. Then run run_lua_from_python.py.
+
+The article's callfemm example sends one FEMM command string. It does not
+execute a whole Lua program inside Python. The separate subprocess example
+invokes the Lua launcher to execute the complete Lua file.
+
+Mesh exercise and numerical scope
+----------------------------------
+The retained v3 finer-mesh result is 0.647234 mH with 140,648 elements, obtained
+by changing only meshScale from 1 to 0.5 in a separate copy of coil.lua.
+The original baseline and finer outputs are retained in the v3 authoring
+directory; their result CSVs are copied into this package's evidence folder.
+No new mesh-convergence claim is made by the v4 editorial revision.
+
+The reference geometry and boundary follow FEMM's AirCore example:
+https://www.femm.info/doku/doku.php?id=AirCore
+The published inductance reference is 0.64707 mH. All winding and air regions
+have relative permeability one. There is one independently driven circuit
+and no permanent-magnet bias, so the linkage/current measurement is appropriate.

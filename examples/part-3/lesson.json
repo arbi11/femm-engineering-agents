@@ -1,0 +1,24 @@
+{
+  "claim": "At fixed geometry and turn count in this linear air-core case, doubling current doubled linkage and left inductance unchanged.",
+  "evidence": [
+    "evidence/coil-scaling-results.json",
+    "evidence/baseline-results.csv"
+  ],
+  "conditions": [
+    "Same geometry and turns",
+    "Linear material law",
+    "One independent current source",
+    "No permanent-magnet bias"
+  ],
+  "revisit_when": [
+    "Magnetic saturation matters",
+    "Permanent magnets contribute linkage",
+    "Another winding is independently excited"
+  ],
+  "mesh_observation": "Halving prescribed mesh lengths changed inductance by +0.0442% for this case; it is a two-mesh sensitivity comparison.",
+  "mesh_evidence": [
+    "evidence/baseline-results.csv",
+    "evidence/fine-results.csv"
+  ],
+  "canonical_graph_modified": false
+}

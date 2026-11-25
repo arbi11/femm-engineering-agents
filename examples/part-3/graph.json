@@ -1,0 +1,957 @@
+{
+  "description": "Focused article excerpt; original records and verification states retained.",
+  "nodes": [
+    {
+      "id": "method:methods_axisymmetric_coil_section",
+      "layer": 2,
+      "kind": "component",
+      "title": "Axisymmetric rectangular winding section",
+      "description": "Draw a radial/axial winding rectangle at positive radius, place a winding label and model the full revolution about r=0. The graphical preview is a generic cross-section; its dimensions are explicit parameters, not copied from every cited device.",
+      "parameters": [
+        {
+          "name": "inner_radius",
+          "unit": "length",
+          "description": "Radial position of the winding inner surface; nonnegative."
+        },
+        {
+          "name": "outer_radius",
+          "unit": "length",
+          "description": "Must exceed inner radius."
+        },
+        {
+          "name": "axial_length",
+          "unit": "length",
+          "description": "Length of the winding along z."
+        }
+      ],
+      "inputs": [
+        "Winding dimensions and axis convention"
+      ],
+      "outputs": [
+        "Closed coil section and label"
+      ],
+      "constraints": [
+        "Use r/z coordinates and r >= 0.",
+        "An axisymmetric winding represents circumferential current, not a planar extrusion."
+      ],
+      "capabilities": [
+        "axisymmetric_magnetics"
+      ],
+      "source_ids": [
+        "aircore",
+        "blockedimpedance",
+        "blockedimpedance1khz",
+        "coilgun",
+        "magneticstutorial",
+        "rotersexample",
+        "team28",
+        "woofer"
+      ],
+      "verification": {
+        "status": "numerically_checked",
+        "report": "verification/official_reproductions.json",
+        "reports": [
+          "verification/official_reproductions.json"
+        ],
+        "case_ids": [
+          "magneticstutorial-coil"
+        ],
+        "note": "Used by article-level, machine-component or new-design assemblies that passed natively; applicability limits still apply."
+      },
+      "tags": [
+        "geometry",
+        "axisymmetric_coil_section"
+      ],
+      "recipe_id": "coil_section",
+      "executable_component": {
+        "id": "axisymmetric_coil_section",
+        "parameters": [
+          {
+            "name": "inner_radius",
+            "type": "number",
+            "description": "Inner radius",
+            "required": true,
+            "unit": "model length",
+            "minimum": 0
+          },
+          {
+            "name": "outer_radius",
+            "type": "number",
+            "description": "Outer radius",
+            "required": true,
+            "unit": "model length",
+            "exclusive_minimum": 0
+          },
+          {
+            "name": "z_min",
+            "type": "number",
+            "description": "Lower axial edge",
+            "required": true,
+            "unit": "model length"
+          },
+          {
+            "name": "z_max",
+            "type": "number",
+            "description": "Upper axial edge",
+            "required": true,
+            "unit": "model length"
+          },
+          {
+            "name": "material",
+            "type": "string",
+            "description": "Winding material",
+            "required": true
+          },
+          {
+            "name": "circuit",
+            "type": "string",
+            "description": "Circuit",
+            "required": true
+          },
+          {
+            "name": "turns",
+            "type": "integer",
+            "description": "Signed turns; a nonzero integer, used only with a circuit",
+            "required": true
+          },
+          {
+            "name": "mesh",
+            "type": "number",
+            "description": "Maximum element size",
+            "required": false,
+            "unit": "model length",
+            "exclusive_minimum": 0
+          }
+        ],
+        "physics": [
+          "magnetics"
+        ],
+        "problem_types": [
+          "axisymmetric"
+        ],
+        "constraints": [],
+        "femm_functions": [
+          "addsegment",
+          "addblocklabel",
+          "setblockprop"
+        ],
+        "uses_components": [
+          "segment",
+          "block_label"
+        ]
+      },
+      "version": 1,
+      "source_versions": {
+        "aircore": "5bcb0abd8b3f220afe2723aada81a89d5901e919264c74a45c8bc5f77b8c8e16",
+        "blockedimpedance": "ac2519297ed714434027d757faf5d66fffeae29939b393274dd8f14bb4dce6ed",
+        "blockedimpedance1khz": "fcd5ff002b7c819cd003743c3365a723e12d5f3076c94591c6cd679f15b157a1",
+        "coilgun": "274c95dd90b985cbc8755348225e4d722123e1f5e6056642d52bbc80b711f4c0",
+        "magneticstutorial": "97b61bdf112c8ee4d454d5b72c62049fe3d8f3765c2dfe9438c73d10af0e3cfa",
+        "rotersexample": "0a24fb910151034e78b52327a423dfe12a83ea5b49391d6b0d9470ff73fb4c31",
+        "team28": "ee9b324703fb2b84756ff186fae8630657d26dca4466ae9985bdc2594ecbf751",
+        "woofer": "c6bddc1d39273db97c5dc1c0b6d46fbfb6366e655f065777f2a8f96ec38e3590"
+      }
+    },
+    {
+      "id": "method:methods_biased_incremental_inductance",
+      "layer": 2,
+      "kind": "method",
+      "title": "Finite-difference inductance about magnet bias",
+      "description": "For the woofer example, solve the same coil position with zero and nonzero current and divide the linkage difference by the current difference. This removes fixed magnet linkage from the estimated self-inductance.",
+      "parameters": [
+        {
+          "name": "delta_current",
+          "unit": "A",
+          "description": "Chosen finite perturbation about the magnet-established operating point."
+        }
+      ],
+      "inputs": [
+        "Two matching position snapshots and their current/linkage pairs"
+      ],
+      "outputs": [
+        "Finite-difference incremental inductance estimate"
+      ],
+      "constraints": [
+        "The perturbation must be checked for adequacy in nonlinear steel.",
+        "Total linkage divided by coil current includes magnet bias and is not the desired incremental inductance."
+      ],
+      "capabilities": [
+        "biased_magnetostatics"
+      ],
+      "source_ids": [
+        "woofer"
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "Procedure curated from the cited official FEMM example(s); this library entry has not been numerically rerun."
+      },
+      "tags": [
+        "solution",
+        "biased_incremental_inductance"
+      ],
+      "version": 1,
+      "source_versions": {
+        "woofer": "c6bddc1d39273db97c5dc1c0b6d46fbfb6366e655f065777f2a8f96ec38e3590"
+      }
+    },
+    {
+      "id": "method:methods_linear_flux_inductance",
+      "layer": 2,
+      "kind": "method",
+      "title": "Inductance from circuit flux linkage",
+      "description": "Read the winding current and total flux linkage from circuit properties and compute L = linkage/current for the explicitly linear single-source regime.",
+      "parameters": [
+        {
+          "name": "current",
+          "unit": "A",
+          "description": "Nonzero winding current used for linkage/current."
+        }
+      ],
+      "inputs": [
+        "Solved linear model and circuit name"
+      ],
+      "outputs": [
+        "Self-inductance in H and winding quantities"
+      ],
+      "constraints": [
+        "A permanent-magnet bias or other independently excited coil invalidates the simple quotient for self-inductance.",
+        "Saturation requires a stated apparent or incremental definition."
+      ],
+      "capabilities": [
+        "circuit_postprocessing",
+        "linear_magnetostatics"
+      ],
+      "source_ids": [
+        "aircore",
+        "inductanceexample",
+        "magneticstutorial"
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "Procedure curated from the cited official FEMM example(s); this library entry has not been numerically rerun."
+      },
+      "tags": [
+        "solution",
+        "linear_flux_inductance"
+      ],
+      "version": 1,
+      "source_versions": {
+        "aircore": "5bcb0abd8b3f220afe2723aada81a89d5901e919264c74a45c8bc5f77b8c8e16",
+        "inductanceexample": "ca52cb40a69cda6a52e76635a626da3a0c30fb0943485d8f5ffafe57e6f7b017",
+        "magneticstutorial": "97b61bdf112c8ee4d454d5b72c62049fe3d8f3765c2dfe9438c73d10af0e3cfa"
+      }
+    },
+    {
+      "id": "primitive:mi_addblocklabel",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_addblocklabel",
+      "description": "Create a seed identifying a material region.",
+      "signature": "mi_addblocklabel(x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "y",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_addblocklabel"
+      ],
+      "source_locator": {
+        "page": 97,
+        "function": "mi_addblocklabel"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mi_addnode",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_addnode",
+      "description": "Create a point used by geometry entities.",
+      "signature": "mi_addnode(x,y)",
+      "parameters": [
+        {
+          "name": "x",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "y",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_addnode"
+      ],
+      "source_locator": {
+        "page": 97,
+        "function": "mi_addnode"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mi_addsegment",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_addsegment",
+      "description": "Connect existing geometry points with a straight segment.",
+      "signature": "mi_addsegment(x1,y1,x2,y2)",
+      "parameters": [
+        {
+          "name": "x1",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "y1",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "x2",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "y2",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_addsegment"
+      ],
+      "source_locator": {
+        "page": 97,
+        "function": "mi_addsegment"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mi_analyze",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_analyze",
+      "description": "Run the field solver using the configured model.",
+      "signature": "mi_analyze(flag)",
+      "parameters": [
+        {
+          "name": "flag",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_analyze"
+      ],
+      "source_locator": {
+        "page": 99,
+        "function": "mi_analyze"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mi_loadsolution",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_loadsolution",
+      "description": "Open the field solution for postprocessing.",
+      "signature": "mi_loadsolution()",
+      "parameters": [],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_loadsolution"
+      ],
+      "source_locator": {
+        "page": 99,
+        "function": "mi_loadsolution"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mi_modifycircprop",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_modifycircprop",
+      "description": "A documented magnetics preprocessor operation; inspect the cited command contract before binding arguments.",
+      "signature": "mi_modifycircprop(\"CircName\",propnum,value)",
+      "parameters": [
+        {
+          "name": "\"CircName\"",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "propnum",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "value",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_modifycircprop"
+      ],
+      "source_locator": {
+        "page": 105,
+        "function": "mi_modifycircprop"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mi_probdef",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_probdef",
+      "description": "Configure the physics, units and numerical problem settings.",
+      "signature": "mi_probdef(...)",
+      "parameters": [
+        {
+          "name": "...",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_probdef"
+      ],
+      "source_locator": {
+        "page": 99,
+        "function": "mi_probdef"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mi_setblockprop",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mi_setblockprop",
+      "description": "Assign selected-region material, mesh and other physics-specific properties.",
+      "signature": "mi_setblockprop(\"blockname\", automesh, meshsize, \"incircuit\", magdirection, group, turns)",
+      "parameters": [
+        {
+          "name": "\"blockname\"",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "automesh",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "meshsize",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "\"incircuit\"",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "magdirection",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "group",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        },
+        {
+          "name": "turns",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics preprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics preprocessor",
+        "mi_setblockprop"
+      ],
+      "source_locator": {
+        "page": 98,
+        "function": "mi_setblockprop"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "primitive:mo_getcircuitproperties",
+      "layer": 3,
+      "kind": "femm_function",
+      "title": "mo_getcircuitproperties",
+      "description": "Read electrical circuit quantities from the solution.",
+      "signature": "mo_getcircuitproperties(\"circuit\")",
+      "parameters": [
+        {
+          "name": "\"circuit\"",
+          "unit": "command-specific",
+          "description": "See the versioned source contract."
+        }
+      ],
+      "inputs": [
+        "Valid selection and problem state as required by this command."
+      ],
+      "outputs": [
+        "The documented command result or model-state change."
+      ],
+      "constraints": [
+        "FEMM version and binding compatibility must be checked.",
+        "Function documentation is not a numerical validation result."
+      ],
+      "capabilities": [
+        "magnetics postprocessor"
+      ],
+      "source_ids": [
+        "manual5"
+      ],
+      "tags": [
+        "magnetics postprocessor",
+        "mo_getcircuitproperties"
+      ],
+      "source_locator": {
+        "page": 110,
+        "function": "mo_getcircuitproperties"
+      },
+      "verification": {
+        "status": "documented",
+        "note": "Function signature extracted from an official source; examples have not been implicitly executed."
+      },
+      "version": 1,
+      "source_versions": {
+        "manual5": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+      }
+    },
+    {
+      "id": "workflow:aircore",
+      "layer": 1,
+      "kind": "workflow",
+      "title": "Parameterized air-core coil inductance and Wheeler comparison",
+      "description": "Programmatically construct an arbitrary cylindrical air-core winding, solve at one ampere, read circuit linkage and compare selected dimensions with the applicable empirical Wheeler formula.",
+      "parameters": [],
+      "inputs": [
+        "Source geometry and operating conditions"
+      ],
+      "outputs": [
+        "Closed coil section and label",
+        "Assigned linear materials",
+        "Consistent circuit/block assignment",
+        "Approximate open boundary",
+        "Native model, mesh and magnetic solution",
+        "Self-inductance in H and winding quantities"
+      ],
+      "constraints": [
+        "The source Octave function uses inches and an explicit one-ampere circuit.",
+        "The empirical formula has its own geometry applicability and is not an exact reference."
+      ],
+      "capabilities": [
+        "axisymmetric_magnetostatics",
+        "linear_materials"
+      ],
+      "source_ids": [
+        "aircore"
+      ],
+      "verification": {
+        "status": "documented",
+        "note": "Source-backed workflow; published results are references, not fresh executions by this library."
+      },
+      "tags": [
+        "coil",
+        "axisymmetric_magnetostatics",
+        "linear_materials"
+      ],
+      "version": 1,
+      "source_versions": {
+        "aircore": "5bcb0abd8b3f220afe2723aada81a89d5901e919264c74a45c8bc5f77b8c8e16"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "method:methods_axisymmetric_coil_section:implements:mi_addblocklabel",
+      "source": "method:methods_axisymmetric_coil_section",
+      "target": "primitive:mi_addblocklabel",
+      "relation": "implemented_by",
+      "order": 4,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "magneticstutorial",
+        "aircore",
+        "coilgun",
+        "rotersexample",
+        "team28",
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_axisymmetric_coil_section:implements:mi_addnode",
+      "source": "method:methods_axisymmetric_coil_section",
+      "target": "primitive:mi_addnode",
+      "relation": "implemented_by",
+      "order": 2,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "magneticstutorial",
+        "aircore",
+        "coilgun",
+        "rotersexample",
+        "team28",
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_axisymmetric_coil_section:implements:mi_addsegment",
+      "source": "method:methods_axisymmetric_coil_section",
+      "target": "primitive:mi_addsegment",
+      "relation": "implemented_by",
+      "order": 3,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "magneticstutorial",
+        "aircore",
+        "coilgun",
+        "rotersexample",
+        "team28",
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_axisymmetric_coil_section:implements:mi_probdef",
+      "source": "method:methods_axisymmetric_coil_section",
+      "target": "primitive:mi_probdef",
+      "relation": "implemented_by",
+      "order": 1,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "magneticstutorial",
+        "aircore",
+        "coilgun",
+        "rotersexample",
+        "team28",
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_biased_incremental_inductance:implements:mi_analyze",
+      "source": "method:methods_biased_incremental_inductance",
+      "target": "primitive:mi_analyze",
+      "relation": "implemented_by",
+      "order": 2,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_biased_incremental_inductance:implements:mi_loadsolution",
+      "source": "method:methods_biased_incremental_inductance",
+      "target": "primitive:mi_loadsolution",
+      "relation": "implemented_by",
+      "order": 3,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_biased_incremental_inductance:implements:mi_modifycircprop",
+      "source": "method:methods_biased_incremental_inductance",
+      "target": "primitive:mi_modifycircprop",
+      "relation": "implemented_by",
+      "order": 1,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_biased_incremental_inductance:implements:mo_getcircuitproperties",
+      "source": "method:methods_biased_incremental_inductance",
+      "target": "primitive:mo_getcircuitproperties",
+      "relation": "implemented_by",
+      "order": 4,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "woofer"
+      ]
+    },
+    {
+      "id": "method:methods_linear_flux_inductance:implements:mo_getcircuitproperties",
+      "source": "method:methods_linear_flux_inductance",
+      "target": "primitive:mo_getcircuitproperties",
+      "relation": "implemented_by",
+      "order": 1,
+      "when": "The method preconditions and cited FEMM/interface version apply; selecting a function does not establish numerical accuracy.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "inductanceexample",
+        "aircore",
+        "magneticstutorial"
+      ]
+    },
+    {
+      "id": "workflow:aircore:uses:method:methods_axisymmetric_coil_section",
+      "source": "workflow:aircore",
+      "target": "method:methods_axisymmetric_coil_section",
+      "relation": "reuses",
+      "when": "Study aircore under the documented assumptions.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "aircore"
+      ]
+    },
+    {
+      "id": "workflow:aircore:uses:method:methods_linear_flux_inductance",
+      "source": "workflow:aircore",
+      "target": "method:methods_linear_flux_inductance",
+      "relation": "reuses",
+      "when": "Study aircore under the documented assumptions.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "aircore"
+      ]
+    },
+    {
+      "id": "component:method:methods_axisymmetric_coil_section->primitive:mi_addsegment",
+      "source": "method:methods_axisymmetric_coil_section",
+      "target": "primitive:mi_addsegment",
+      "relation": "implemented_by",
+      "when": "Executable construction used by data-only assemblies.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "magneticstutorial"
+      ]
+    },
+    {
+      "id": "component:method:methods_axisymmetric_coil_section->primitive:mi_addblocklabel",
+      "source": "method:methods_axisymmetric_coil_section",
+      "target": "primitive:mi_addblocklabel",
+      "relation": "implemented_by",
+      "when": "Executable construction used by data-only assemblies.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "magneticstutorial"
+      ]
+    },
+    {
+      "id": "component:method:methods_axisymmetric_coil_section->primitive:mi_setblockprop",
+      "source": "method:methods_axisymmetric_coil_section",
+      "target": "primitive:mi_setblockprop",
+      "relation": "implemented_by",
+      "when": "Executable construction used by data-only assemblies.",
+      "parameter_bindings": {},
+      "source_ids": [
+        "magneticstutorial"
+      ]
+    }
+  ]
+}

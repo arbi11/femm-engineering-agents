@@ -1,0 +1,917 @@
+{
+  "created_at": "2026-10-25T06:10:54.108522+00:00",
+  "case_id": "ansys-vm270",
+  "source_measured_target_N": 0.011281499999999998,
+  "source_rounded_target_N": 0.0113,
+  "predeclared_relative_tolerance": 0.02,
+  "native_run_count": 20,
+  "llm_calls": 0,
+  "settings_or_services_changed": false,
+  "downloaded_vendor_scripts_executed": false,
+  "final_scheme": "graded0.3mmfineairenvelope;body.005mm,coil.01mm,envelopeair.005mm,localpocketair.01mm;fixedexteriorair.1mm",
+  "final_default": {
+    "scheme": "vm270-far-air-control",
+    "name": "domain-20-mesh-1",
+    "parameters": {
+      "current": 0.05,
+      "displacement": 0.234,
+      "domain_radius": 20,
+      "mesh_scale": 1
+    },
+    "pipeline_status": "passed",
+    "check_statuses": {
+      "geometry": "passed",
+      "mesh": "passed",
+      "solve": "passed",
+      "target": "passed"
+    },
+    "force_magnet_z_N": 0.011324689209338,
+    "force_coil_lorentz_z_N": -0.011210627230112,
+    "force_coil_wst_z_N": -0.011214886401213,
+    "numerical_target": {
+      "status": "passed",
+      "metric": "force_magnet_z_N",
+      "observed": 0.011324689209338,
+      "expected": 0.011281499999999998,
+      "absolute_error": 4.318920933800256e-05,
+      "relative_error": 0.003828321529761341,
+      "absolute_tolerance": 0.00022562999999999997,
+      "coil_lorentz_relative_error": 0.006282211575410934,
+      "action_reaction_imbalance_N": 0.000114061979226001,
+      "coil_estimator_difference_N": 4.259171101000936e-06,
+      "reference": {
+        "value": 0.011281499999999998,
+        "relative_tolerance": 0.02,
+        "applicable": true
+      }
+    },
+    "duration_seconds": 19.4153,
+    "report_sha256": "4942bea6bfb48c121be99ef670c3e0c9314e75fe21ac500d7896f2e93b090a95",
+    "element_count": 936611
+  },
+  "final_domain_control": {
+    "scheme": "vm270-far-air-control",
+    "name": "domain-40-mesh-1",
+    "parameters": {
+      "current": 0.05,
+      "displacement": 0.234,
+      "domain_radius": 40,
+      "mesh_scale": 1
+    },
+    "pipeline_status": "passed",
+    "check_statuses": {
+      "geometry": "passed",
+      "mesh": "passed",
+      "solve": "passed",
+      "target": "passed"
+    },
+    "force_magnet_z_N": 0.011329842625074,
+    "force_coil_lorentz_z_N": -0.011210826329237,
+    "force_coil_wst_z_N": -0.011214456782395,
+    "numerical_target": {
+      "status": "passed",
+      "metric": "force_magnet_z_N",
+      "observed": 0.011329842625074,
+      "expected": 0.011281499999999998,
+      "absolute_error": 4.834262507400107e-05,
+      "relative_error": 0.00428512388193069,
+      "absolute_tolerance": 0.00022562999999999997,
+      "coil_lorentz_relative_error": 0.006264563290608297,
+      "action_reaction_imbalance_N": 0.00011901629583699856,
+      "coil_estimator_difference_N": 3.630453157999966e-06,
+      "reference": {
+        "value": 0.011281499999999998,
+        "relative_tolerance": 0.02,
+        "applicable": true
+      }
+    },
+    "duration_seconds": 30.4582,
+    "report_sha256": "daab7686eb89aa6cbc6a3568b05107f312bd9bddaf5d4851fbd3c002df16713a",
+    "element_count": 1373895
+  },
+  "domain_change_relative_to_published_target": 0.0004568023521693487,
+  "module_freeze": {
+    "module_sha256": "66ab29be1eacc018e9be2e3c3aeb35760e0f583daf36cf9841c1e533b6da84eb",
+    "baseline_lua_sha256": "f5d14f95ef029d982b8da3b60bd775ca2010226684571e70f27c2ecd3655e4b5",
+    "baseline_lua_identical_to_passing_pilot": true,
+    "defaults": {
+      "current": 0.05,
+      "displacement": 0.234,
+      "domain_radius": 20.0,
+      "mesh_scale": 1.0
+    }
+  },
+  "numerical_convergence_verified": false,
+  "recovery_history": "Initialcoarsefullmesh andgradedair trials failed unchanged2%target on rawmagnetWST, whilecoilLorentz matched. Causal fixedfarair0.4\u21920.1mm trial restoredmagnetWSTaccuracy withoutchanginggeometry/materials/excitation/targets. Initialnoncircuitturn0 native normalizationto1alsofixed verifier; all original failuresretained. Finestinitialfull-pocket40mm hit app64MiBmeshcap, withindependentstreamingverificationretained.",
+  "runs": [
+    {
+      "scheme": "vm270-native-pilot",
+      "name": "domain-20-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "failed",
+        "mesh": "not_run",
+        "solve": "not_run",
+        "target": "not_run"
+      },
+      "force_magnet_z_N": 0.016817411404046,
+      "force_coil_lorentz_z_N": -0.01118475900276,
+      "force_coil_wst_z_N": -0.016073412939958,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.016817411404046,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.005535911404046001,
+        "relative_error": 0.49070703399778415,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.008575189224836998,
+        "action_reaction_imbalance_N": 0.005632652401285999,
+        "coil_estimator_difference_N": 0.0048886539371979995,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 0.5194,
+      "report_sha256": "09b1dc8c9d248d66d9b6dd6701ae704e2c4a167a1f7592fa33784468ba78bb48"
+    },
+    {
+      "scheme": "vm270-native-pilot",
+      "name": "domain-40-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "failed",
+        "mesh": "not_run",
+        "solve": "not_run",
+        "target": "not_run"
+      },
+      "force_magnet_z_N": 0.018667657494706,
+      "force_coil_lorentz_z_N": -0.011171556448373,
+      "force_coil_wst_z_N": -0.017875503834869,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.018667657494706,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.007386157494706001,
+        "relative_error": 0.654714133289545,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.00974547282072409,
+        "action_reaction_imbalance_N": 0.007496101046333,
+        "coil_estimator_difference_N": 0.006703947386496002,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 0.7166,
+      "report_sha256": "282488acdec08ffae9dcd2bb8cd58c51e3b9da9958cc7a142e95643effea2ca1"
+    },
+    {
+      "scheme": "vm270-native-pilot",
+      "name": "domain-20-mesh-0.5",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 0.5
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "failed",
+        "mesh": "not_run",
+        "solve": "not_run",
+        "target": "not_run"
+      },
+      "force_magnet_z_N": 0.015123097049595,
+      "force_coil_lorentz_z_N": -0.011203966441677,
+      "force_coil_wst_z_N": -0.013761292882116,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.015123097049595,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.003841597049595002,
+        "relative_error": 0.3405218321672652,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006872628491157947,
+        "action_reaction_imbalance_N": 0.0039191306079180005,
+        "coil_estimator_difference_N": 0.002557326440439,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 0.7673,
+      "report_sha256": "646b00ec0535d2ce6db9db99f184ff261e52d459926daf0e36e38e7209ea9f57"
+    },
+    {
+      "scheme": "vm270-native-pilot",
+      "name": "domain-40-mesh-0.5",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 0.5
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "failed",
+        "mesh": "not_run",
+        "solve": "not_run",
+        "target": "not_run"
+      },
+      "force_magnet_z_N": 0.014201308267759,
+      "force_coil_lorentz_z_N": -0.01120980633982,
+      "force_coil_wst_z_N": -0.014386095966814,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.014201308267759,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.002919808267759002,
+        "relative_error": 0.25881383395461616,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006354975861365832,
+        "action_reaction_imbalance_N": 0.0029915019279390005,
+        "coil_estimator_difference_N": 0.0031762896269940007,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 1.9192,
+      "report_sha256": "362a7dd68d4215758b4d1725966534dcbe4d2f119f6b9c5c3d379c7b82c3ecbe"
+    },
+    {
+      "scheme": "vm270-fine-air-pilot",
+      "name": "domain-20-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.012152386300086,
+      "force_coil_lorentz_z_N": -0.011209805583217,
+      "force_coil_wst_z_N": -0.011283011887293,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.012152386300086,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0008708863000860025,
+        "relative_error": 0.07719596685600343,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006355042927181459,
+        "action_reaction_imbalance_N": 0.0009425807168690001,
+        "coil_estimator_difference_N": 7.320630407599976e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 2.8063,
+      "report_sha256": "6951c3e23d133423bbda7d8586e1495631d211c76bc11d3fab246b4952c6fe67",
+      "element_count": 140336
+    },
+    {
+      "scheme": "vm270-fine-air-pilot",
+      "name": "domain-40-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.012197032677865,
+      "force_coil_lorentz_z_N": -0.011210209428333,
+      "force_coil_wst_z_N": -0.011289023830599,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.012197032677865,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0009155326778650021,
+        "relative_error": 0.08115345280902382,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006319245815449928,
+        "action_reaction_imbalance_N": 0.0009868232495320005,
+        "coil_estimator_difference_N": 7.881440226599999e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 3.3463,
+      "report_sha256": "9fc43d6082394752b5bbc6120f67054507e56211617cced93737e3f597d4a33f",
+      "element_count": 167677
+    },
+    {
+      "scheme": "vm270-fine-air-pilot",
+      "name": "domain-20-mesh-0.5",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 0.5
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.011581641697097,
+      "force_coil_lorentz_z_N": -0.011210502174254,
+      "force_coil_wst_z_N": -0.01123157391473,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011581641697097,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.00030014169709700195,
+        "relative_error": 0.026604768612064175,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006293296613570656,
+        "action_reaction_imbalance_N": 0.0003711395228429993,
+        "coil_estimator_difference_N": 2.1071740475999204e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 11.7727,
+      "report_sha256": "466e7724aa631efc12d2967cf051f3be6fcb2d24033dd0c07ef59010529a8335",
+      "element_count": 553037
+    },
+    {
+      "scheme": "vm270-fine-air-pilot",
+      "name": "domain-40-mesh-0.5",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 0.5
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.011576310078752,
+      "force_coil_lorentz_z_N": -0.011210678299223,
+      "force_coil_wst_z_N": -0.01122822891892,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011576310078752,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0002948100787520027,
+        "relative_error": 0.026132170256792337,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006277684773921698,
+        "action_reaction_imbalance_N": 0.0003656317795290003,
+        "coil_estimator_difference_N": 1.755061969700017e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 14.9091,
+      "report_sha256": "66f278f23b7a79030e8232d2755dda2433ac0800f55ebe15f3f5e171d04c0626",
+      "element_count": 661192
+    },
+    {
+      "scheme": "vm270-final-refinement",
+      "name": "domain-20-mesh-0.25",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 0.25
+      },
+      "pipeline_status": "passed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "passed"
+      },
+      "force_magnet_z_N": 0.011330140572384,
+      "force_coil_lorentz_z_N": -0.011210722706354,
+      "force_coil_wst_z_N": -0.011215093575226,
+      "numerical_target": {
+        "status": "passed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011330140572384,
+        "expected": 0.011281499999999998,
+        "absolute_error": 4.864057238400214e-05,
+        "relative_error": 0.0043115341385455965,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006273748494969414,
+        "action_reaction_imbalance_N": 0.00011941786602999958,
+        "coil_estimator_difference_N": 4.370868871998723e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 60.4911,
+      "report_sha256": "b31a738025f50f6109b41053202e21d3523d1d56cbf997bd60915e78ad4c932e",
+      "element_count": 2194726
+    },
+    {
+      "scheme": "vm270-final-refinement",
+      "name": "domain-40-mesh-0.25",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 0.25
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "failed",
+        "solve": "not_run",
+        "target": "not_run"
+      },
+      "force_magnet_z_N": 0.011329883691851,
+      "force_coil_lorentz_z_N": -0.01121093158926,
+      "force_coil_wst_z_N": -0.011215450654924,
+      "numerical_target": {
+        "status": "passed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011329883691851,
+        "expected": 0.011281499999999998,
+        "absolute_error": 4.8383691851002636e-05,
+        "relative_error": 0.00428876406958318,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006255232969019865,
+        "action_reaction_imbalance_N": 0.00011895210259100022,
+        "coil_estimator_difference_N": 4.519065663999983e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 63.0749,
+      "report_sha256": "50ae9b6f2b6f141bc1db52399a400f41215e661eaac750e86a02eeac468c9d25",
+      "independent_streaming_mesh_verification": {
+        "status": "passed",
+        "method": "Bounded128MiB streaming standalone evidence validation; app64MiBcap was not changed",
+        "node_count": 1318112,
+        "element_count": 2632967,
+        "total_cross_section_area_mm2": 2513.146526968827,
+        "minimum_element_area_mm2": 3.1059562928030553e-06,
+        "duration_seconds": 9.46422779400018,
+        "verifier_sha256": "68714e5c0ef9ac86715e523460e3814ca9e54dd6e667bf87a75ff6b2302bfa7a",
+        "mesh_sha256": {
+          "model.node": "fec0fb7740bb105078924cceec9c956485d74f395e80a80af3a5992e89ec881f",
+          "model.ele": "5f2d0645cc1a4751234f94869aeb6b28782aaed5f0615875944585769a234dfc"
+        }
+      }
+    },
+    {
+      "scheme": "vm270-thin-envelope-pilot",
+      "name": "domain-20-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.011959752457951,
+      "force_coil_lorentz_z_N": -0.011210040415569,
+      "force_coil_wst_z_N": -0.011214261255299,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011959752457951,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0006782524579510025,
+        "relative_error": 0.06012076921960755,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.0063342272243050845,
+        "action_reaction_imbalance_N": 0.0007497120423820003,
+        "coil_estimator_difference_N": 4.220839730000037e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 2.6013,
+      "report_sha256": "c5f280d7217657691b4352c411ba016f5b1d04d4a28558358387963fe01fc689",
+      "element_count": 141023
+    },
+    {
+      "scheme": "vm270-thin-envelope-pilot",
+      "name": "domain-40-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.011987183147055,
+      "force_coil_lorentz_z_N": -0.011209481449911,
+      "force_coil_wst_z_N": -0.01118637945213,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011987183147055,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0007056831470550022,
+        "relative_error": 0.06255224456455279,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006383774328679586,
+        "action_reaction_imbalance_N": 0.000777701697144001,
+        "coil_estimator_difference_N": 2.3101997780999514e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 3.4718,
+      "report_sha256": "66645f2e96d68ca4d7bde782a19c7e46545cbe581ba5ca364d91319b20b381be",
+      "element_count": 168233
+    },
+    {
+      "scheme": "vm270-thin-envelope-pilot",
+      "name": "domain-20-mesh-0.5",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 0.5
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.011872244566995,
+      "force_coil_lorentz_z_N": -0.011209834868216,
+      "force_coil_wst_z_N": -0.011242132901669,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011872244566995,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.000590744566995002,
+        "relative_error": 0.05236400895226717,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.0063524470845188075,
+        "action_reaction_imbalance_N": 0.0006624096987790009,
+        "coil_estimator_difference_N": 3.2298033453000835e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 10.7051,
+      "report_sha256": "3f6fc116ad51f59a5529149fc3e4db3279471509caa2138a21bb4ff8731f113c",
+      "element_count": 514110
+    },
+    {
+      "scheme": "vm270-thin-envelope-pilot",
+      "name": "domain-40-mesh-0.5",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 0.5
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.01195417786589,
+      "force_coil_lorentz_z_N": -0.011210280703469,
+      "force_coil_wst_z_N": -0.011205968740606,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.01195417786589,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0006726778658900021,
+        "relative_error": 0.05962663350529648,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006312927937862742,
+        "action_reaction_imbalance_N": 0.0007438971624210006,
+        "coil_estimator_difference_N": 4.3119628629992995e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 11.9393,
+      "report_sha256": "a9f5d9c046e25d79bd2e0a62c3d91bd229fc6c9eec42a35ea9a10e4060e359ae",
+      "element_count": 541342
+    },
+    {
+      "scheme": "vm270-broad-envelope-pilot",
+      "name": "domain-20-mesh-2",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 2
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.012031811858188,
+      "force_coil_lorentz_z_N": -0.01120983949707,
+      "force_coil_wst_z_N": -0.011228968389778,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.012031811858188,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0007503118581880016,
+        "relative_error": 0.06650816453379442,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006352036779683326,
+        "action_reaction_imbalance_N": 0.000821972361117999,
+        "coil_estimator_difference_N": 1.9128892707999737e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 3.8091,
+      "report_sha256": "b0eb61741235e84367e76b173fbaa63c78d4da15385fea4e3c55ba2bf688a80f",
+      "element_count": 210692
+    },
+    {
+      "scheme": "vm270-broad-envelope-pilot",
+      "name": "domain-40-mesh-2",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 2
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.012203708718149,
+      "force_coil_lorentz_z_N": -0.011209473505149,
+      "force_coil_wst_z_N": -0.011222579509409,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.012203708718149,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0009222087181490011,
+        "relative_error": 0.08174522165926527,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006384478557904363,
+        "action_reaction_imbalance_N": 0.0009942352129999991,
+        "coil_estimator_difference_N": 1.310600425999918e-05,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 4.3922,
+      "report_sha256": "74772622e0ee41dbbe3e06f1f5a25934c8547b762e6d3bbf2d6ba9b9d143f7dc",
+      "element_count": 238164
+    },
+    {
+      "scheme": "vm270-broad-envelope-pilot",
+      "name": "domain-20-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.011914562727801,
+      "force_coil_lorentz_z_N": -0.011209972244012,
+      "force_coil_wst_z_N": -0.01121312677342,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011914562727801,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.000633062727801002,
+        "relative_error": 0.05611512013482268,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006340269998492927,
+        "action_reaction_imbalance_N": 0.0007045904837889999,
+        "coil_estimator_difference_N": 3.1545294080000813e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 16.1176,
+      "report_sha256": "b0be4188dee79d3be2b9ef347713318499d774e47e26359b8b1cec0ce709ed75",
+      "element_count": 805243
+    },
+    {
+      "scheme": "vm270-broad-envelope-pilot",
+      "name": "domain-40-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "failed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "failed"
+      },
+      "force_magnet_z_N": 0.0120250572844,
+      "force_coil_lorentz_z_N": -0.011210164526583,
+      "force_coil_wst_z_N": -0.011213515483226,
+      "numerical_target": {
+        "status": "failed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.0120250572844,
+        "expected": 0.011281499999999998,
+        "absolute_error": 0.0007435572844000024,
+        "relative_error": 0.06590943441918207,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.0063232259377741275,
+        "action_reaction_imbalance_N": 0.0008148927578170012,
+        "coil_estimator_difference_N": 3.3509566430001136e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 17.6571,
+      "report_sha256": "402927ac2cedc78edfc7abcba6e357300b017117247929bf9afec01c0565c513",
+      "element_count": 832217
+    },
+    {
+      "scheme": "vm270-far-air-control",
+      "name": "domain-20-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 20,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "passed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "passed"
+      },
+      "force_magnet_z_N": 0.011324689209338,
+      "force_coil_lorentz_z_N": -0.011210627230112,
+      "force_coil_wst_z_N": -0.011214886401213,
+      "numerical_target": {
+        "status": "passed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011324689209338,
+        "expected": 0.011281499999999998,
+        "absolute_error": 4.318920933800256e-05,
+        "relative_error": 0.003828321529761341,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006282211575410934,
+        "action_reaction_imbalance_N": 0.000114061979226001,
+        "coil_estimator_difference_N": 4.259171101000936e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 19.4153,
+      "report_sha256": "4942bea6bfb48c121be99ef670c3e0c9314e75fe21ac500d7896f2e93b090a95",
+      "element_count": 936611
+    },
+    {
+      "scheme": "vm270-far-air-control",
+      "name": "domain-40-mesh-1",
+      "parameters": {
+        "current": 0.05,
+        "displacement": 0.234,
+        "domain_radius": 40,
+        "mesh_scale": 1
+      },
+      "pipeline_status": "passed",
+      "check_statuses": {
+        "geometry": "passed",
+        "mesh": "passed",
+        "solve": "passed",
+        "target": "passed"
+      },
+      "force_magnet_z_N": 0.011329842625074,
+      "force_coil_lorentz_z_N": -0.011210826329237,
+      "force_coil_wst_z_N": -0.011214456782395,
+      "numerical_target": {
+        "status": "passed",
+        "metric": "force_magnet_z_N",
+        "observed": 0.011329842625074,
+        "expected": 0.011281499999999998,
+        "absolute_error": 4.834262507400107e-05,
+        "relative_error": 0.00428512388193069,
+        "absolute_tolerance": 0.00022562999999999997,
+        "coil_lorentz_relative_error": 0.006264563290608297,
+        "action_reaction_imbalance_N": 0.00011901629583699856,
+        "coil_estimator_difference_N": 3.630453157999966e-06,
+        "reference": {
+          "value": 0.011281499999999998,
+          "relative_tolerance": 0.02,
+          "applicable": true
+        }
+      },
+      "duration_seconds": 30.4582,
+      "report_sha256": "daab7686eb89aa6cbc6a3568b05107f312bd9bddaf5d4851fbd3c002df16713a",
+      "element_count": 1373895
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "local_links": "passed",
+  "article_pages": [
+    {
+      "part": 1,
+      "figures": 10,
+      "code_blocks": 6,
+      "title": "Part 1: A First Electromagnetic Model in FEMM"
+    },
+    {
+      "part": 2,
+      "figures": 3,
+      "code_blocks": 1,
+      "title": "Part 2: Giving an AI Agent a FEMM Experiment"
+    },
+    {
+      "part": 3,
+      "figures": 3,
+      "code_blocks": 1,
+      "title": "Part 3: Building a Second Brain for a FEMM Agent"
+    },
+    {
+      "part": 4,
+      "figures": 6,
+      "code_blocks": 2,
+      "title": "Part 4: Reproducing a Magnet-and-Coil Force Benchmark in FEMM"
+    },
+    {
+      "part": 5,
+      "figures": 5,
+      "code_blocks": 2,
+      "title": "Part 5: Reconstructing a Motor from a Journal Paper"
+    }
+  ],
+  "image_hashes": "passed",
+  "python_excerpts": "syntax passed",
+  "local_identity_paths_found": [],
+  "remote_import_tested": false,
+  "local_http_preview": {
+    "requests_checked": 34,
+    "status": "passed"
+  }
+}

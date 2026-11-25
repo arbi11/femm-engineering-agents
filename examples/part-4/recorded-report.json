@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "case_id": "ansys-vm270",
+  "title": "ANSYS VM270 / TEAM23: permanent magnet and coil force",
+  "parameters": {
+    "current": 0.05,
+    "displacement": 0.234,
+    "domain_radius": 20.0,
+    "mesh_scale": 1.0
+  },
+  "plan_sha256": "a40b4420da490d44911292f266ad28d98473ffb05151ad6c04ce232c336faab4",
+  "source_ids": [
+    "ansys-vm270",
+    "ansys-vm270-input",
+    "manual5"
+  ],
+  "source_url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_vm/Hlp_V_VM270.html",
+  "knowledge_node_ids": [
+    "workflow:ansys-vm270",
+    "stage:geometry",
+    "stage:materials",
+    "stage:excitation",
+    "stage:boundaries",
+    "stage:mesh_solve",
+    "stage:solution",
+    "method:vm270_geometry",
+    "method:vm270_material_current",
+    "method:vm270_exterior_mesh",
+    "method:vm270_dual_force",
+    "method:methods_axisymmetric_coil_section",
+    "method:methods_permanent_magnet_direction",
+    "method:methods_signed_turn_circuit",
+    "method:methods_magnetic_solve_snapshot",
+    "method:methods_weighted_stress_force",
+    "primitive:mi_probdef",
+    "primitive:mi_addnode",
+    "primitive:mi_addsegment",
+    "primitive:mi_addblocklabel",
+    "primitive:mi_addmaterial",
+    "primitive:mi_addcircprop",
+    "primitive:mi_selectlabel",
+    "primitive:mi_setblockprop",
+    "primitive:mi_addarc",
+    "primitive:mi_addboundprop",
+    "primitive:mi_selectarcsegment",
+    "primitive:mi_setarcsegmentprop",
+    "primitive:mi_createmesh",
+    "primitive:mo_selectblock",
+    "primitive:mo_blockintegral",
+    "primitive:mo_clearblock",
+    "primitive:mi_saveas",
+    "primitive:mi_analyze",
+    "primitive:mi_loadsolution",
+    "primitive:mo_getpointvalues",
+    "primitive:mo_getcircuitproperties",
+    "primitive:mi_clearselected"
+  ],
+  "knowledge_sources": [
+    {
+      "id": "ansys-vm270",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_vm/Hlp_V_VM270.html",
+      "sha256": "79b241e75b82b6101ee5d2710bb6198a24992e4878e59e6c3e2b450341870f41"
+    },
+    {
+      "id": "ansys-vm270-input",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_vm/Hlp_V_VM270TXT.html",
+      "sha256": "8f432f4ac2ca7d5030a03b7faf039ae622d08fb10c60fa72601f777c42a39631"
+    },
+    {
+      "id": "manual5",
+      "url": "https://femm.info/doku/lib/exe/fetch.php?media=femm-qt%3Adocs%3Amanual.pdf",
+      "sha256": "e1273290fd7856a0f19779af87ce3c184e3eabc0771e4b814ece26210c61d237"
+    }
+  ],
+  "knowledge_artifacts": [],
+  "frozen_reference": {
+    "metric": "force_magnet_z_N",
+    "value": 0.011281499999999998,
+    "kind": "published_measured_force",
+    "relative_tolerance": 0.02,
+    "source_locator": "VM270 input listing measured FY_M=1.150*9.81e-3 N at displacement0.234mm, I50mA,N280; comparison table rounds this to0.0113N.",
+    "applicable": true,
+    "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+  },
+  "frozen_references": [
+    {
+      "metric": "force_magnet_z_N",
+      "value": 0.011281499999999998,
+      "kind": "published_measured_force",
+      "relative_tolerance": 0.02,
+      "source_locator": "VM270 input listing measured FY_M=1.150*9.81e-3 N at displacement0.234mm, I50mA,N280; comparison table rounds this to0.0113N.",
+      "applicable": true,
+      "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+    },
+    {
+      "metric": "force_coil_z_N",
+      "value": -0.011281499999999998,
+      "kind": "published_measured_force",
+      "relative_tolerance": 0.02,
+      "source_locator": "Equal opposite axial coil Lorentz force in the VM270 measured-target comparison.",
+      "applicable": true,
+      "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+    }
+  ],
+  "started_at": "2026-10-25T06:19:45.205916+00:00",
+  "engine": {
+    "launcher": "/opt/femm/bin/femm-lua",
+    "engine_version": "FEMM headless engine v5.0 23Oct2026",
+    "version_exit_code": 0
+  },
+  "checks": {
+    "geometry": {
+      "status": "passed",
+      "counts": {
+        "nodes": 18,
+        "segments": 20,
+        "arcs": 1,
+        "labels": 5
+      },
+      "physical_assignments": {
+        "status": "passed",
+        "coordinate_system": "axisymmetric",
+        "length_units": "millimeters",
+        "materials": 3,
+        "turns": 280,
+        "circuit_count": 1,
+        "magnetization_degrees": 90,
+        "relative_permeability": 1.127347513567592,
+        "boundary_attachments": {
+          "status": "passed",
+          "assigned_exterior_arcs": 1,
+          "unassigned_segments": 20
+        }
+      }
+    },
+    "mesh": {
+      "status": "passed",
+      "node_count": 469215,
+      "element_count": 936611,
+      "minimum_element_area_mm2": 3.2120085527533558e-06,
+      "total_cross_section_area_mm2": 628.28663174221,
+      "area_note": "Geometric cross-section area, not axisymmetric revolved volume"
+    },
+    "solve": {
+      "status": "passed",
+      "solution_bytes": 61504744
+    },
+    "target": {
+      "status": "passed",
+      "metric": "force_magnet_z_N",
+      "observed": 0.011324689209338,
+      "expected": 0.011281499999999998,
+      "absolute_error": 4.318920933800256e-05,
+      "relative_error": 0.003828321529761341,
+      "absolute_tolerance": 0.00022562999999999997,
+      "coil_lorentz_relative_error": 0.006282211575410934,
+      "action_reaction_imbalance_N": 0.000114061979226001,
+      "coil_estimator_difference_N": 4.259171101000936e-06,
+      "reference": {
+        "metric": "force_magnet_z_N",
+        "value": 0.011281499999999998,
+        "kind": "published_measured_force",
+        "relative_tolerance": 0.02,
+        "source_locator": "VM270 input listing measured FY_M=1.150*9.81e-3 N at displacement0.234mm, I50mA,N280; comparison table rounds this to0.0113N.",
+        "applicable": true,
+        "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+      },
+      "targets": [
+        {
+          "status": "passed",
+          "metric": "force_magnet_z_N",
+          "observed": 0.011324689209338,
+          "expected": 0.011281499999999998,
+          "absolute_error": 4.318920933800256e-05,
+          "relative_error": 0.003828321529761341,
+          "absolute_tolerance": 0.00022562999999999997,
+          "reference": {
+            "metric": "force_magnet_z_N",
+            "value": 0.011281499999999998,
+            "kind": "published_measured_force",
+            "relative_tolerance": 0.02,
+            "source_locator": "VM270 input listing measured FY_M=1.150*9.81e-3 N at displacement0.234mm, I50mA,N280; comparison table rounds this to0.0113N.",
+            "applicable": true,
+            "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+          }
+        },
+        {
+          "status": "passed",
+          "metric": "force_coil_z_N",
+          "observed": -0.011210627230112,
+          "expected": -0.011281499999999998,
+          "absolute_error": 7.087276988799844e-05,
+          "relative_error": 0.006282211575410934,
+          "absolute_tolerance": 0.00022562999999999997,
+          "reference": {
+            "metric": "force_coil_z_N",
+            "value": -0.011281499999999998,
+            "kind": "published_measured_force",
+            "relative_tolerance": 0.02,
+            "source_locator": "Equal opposite axial coil Lorentz force in the VM270 measured-target comparison.",
+            "applicable": true,
+            "tolerance_origin": "Predeclared benchmark acceptance tolerance; not a tolerance certified by the source"
+          }
+        }
+      ],
+      "consistency": {
+        "status": "passed",
+        "action_reaction_imbalance_N": 0.000114061979226001,
+        "coil_estimator_difference_N": 4.259171101000936e-06,
+        "absolute_tolerance_N": 0.00022562999999999997
+      }
+    }
+  },
+  "requires_ai": false,
+  "numerical_convergence_verified": false,
+  "status": "passed",
+  "metrics": {
+    "force_magnet_z_N": 0.011324689209338,
+    "force_coil_z_N": -0.011210627230112,
+    "force_coil_wst_z_N": -0.011214886401213,
+    "current_A": 0.05,
+    "flux_linkage_Wb_turn": 0.00026033170737492,
+    "probe_0_field_x_T": -7.3003968482687e-05,
+    "probe_0_field_y_T": 0.45441623483843,
+    "probe_0_field_magnitude_T": 0.45441624070263,
+    "field_x_T": -7.3003968482687e-05,
+    "field_y_T": 0.45441623483843,
+    "field_magnitude_T": 0.45441624070263,
+    "probe_1_field_x_T": 0.14478886365193,
+    "probe_1_field_y_T": 0.29864640472116,
+    "probe_1_field_magnitude_T": 0.33189379338953
+  },
+  "duration_seconds": 18.5099,
+  "completed_at": "2026-10-25T06:20:03.717215+00:00",
+  "artifacts": [
+    {
+      "filename": "field.csv",
+      "sha256": "7e6753b825e675a179f42a433e26fd9661a53560f130c32c1ec6d0799e11afbf",
+      "size_bytes": 37899
+    },
+    {
+      "filename": "field.svg",
+      "sha256": "e74aed36b8355d1b369f5ee89127a6dfe0f1bb38e13faf5786c5ee2472cb8c1d",
+      "size_bytes": 96291
+    },
+    {
+      "filename": "geometry-completed.txt",
+      "sha256": "5a4ef970cb9e68ccde50f123f0f7c6b4fb43f86f46832fcc9fa7d27c3c391129",
+      "size_bytes": 15
+    },
+    {
+      "filename": "geometry.svg",
+      "sha256": "afe90b96bc657e056a680fec73befd09a8548e69c7ed8766e6618a2afbbc6105",
+      "size_bytes": 7125
+    },
+    {
+      "filename": "mesh-completed.txt",
+      "sha256": "d2360866493b5d10042d27934fba26c8fc9da3f13eab26d3567ad94de249ef8e",
+      "size_bytes": 15
+    },
+    {
+      "filename": "mesh.svg",
+      "sha256": "880d2cc7e12001f5616040203ecfcba6a9f2c8881fa6351fdf8b91f5b3754781",
+      "size_bytes": 5510809
+    },
+    {
+      "filename": "metrics.csv",
+      "sha256": "cc13b18c4d797dec0be29c859fbb356fee60b4c30b2f1850d722001cebed9663",
+      "size_bytes": 538
+    },
+    {
+      "filename": "model.ans",
+      "sha256": "eebf9f3d3a87bfc4f531246a3cdd49e00b38164f627ae817a9fc0424d7002ebe",
+      "size_bytes": 61504744
+    },
+    {
+      "filename": "model.ele",
+      "sha256": "b21d82dbc21aedb6c6f49af391945fde17c292bec97bfc9f72193fad6afac649",
+      "size_bytes": 27321866
+    },
+    {
+      "filename": "model.fem",
+      "sha256": "228b7b10975eac7f1f56ef173b6f15cbe688a9d2f356a9267a7462728cd7848b",
+      "size_bytes": 2941
+    },
+    {
+      "filename": "model.lua",
+      "sha256": "f5d14f95ef029d982b8da3b60bd775ca2010226684571e70f27c2ecd3655e4b5",
+      "size_bytes": 4897
+    },
+    {
+      "filename": "model.node",
+      "sha256": "18dc92199957742cb596d2334a242e8b1c926cce38e5e7fce154786ad6aa4add",
+      "size_bytes": 21300412
+    },
+    {
+      "filename": "native.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "filename": "plan.json",
+      "sha256": "abd5f217a0027015d580b42eb067a38ea7e67b03f24e9fd3d607059fe2aaeef8",
+      "size_bytes": 37026
+    },
+    {
+      "filename": "solve-completed.txt",
+      "sha256": "cb20dd05fb7f7e6793ddc147cfd30877cf90311adfbb877c1b3247470de5d539",
+      "size_bytes": 29
+    }
+  ],
+  "execution": {
+    "captured_utc": "2026-10-25T06:19:44.807713+00:00",
+    "engine": "docker",
+    "image_id": "sha256:85f07dce379bff58dc539f8ed49ffba53a94eba332fbf81d4c9fd6c3df94725d",
+    "network": "none",
+    "read_only_container": true,
+    "memory": "2g",
+    "cpus": 2,
+    "status": "completed",
+    "case_id": "ansys-vm270",
+    "plan_sha256": "a40b4420da490d44911292f266ad28d98473ffb05151ad6c04ce232c336faab4",
+    "llm_calls": 0,
+    "provider_credentials_passed": false,
+    "exit_code": 0,
+    "native_report_sha256": "233ce9d203f1fc4b3d62b014476fd7390dfef4d3d95c3368ea9ea46075d45f2c",
+    "completed_utc": "2026-10-25T06:20:04.138237+00:00"
+  }
+}

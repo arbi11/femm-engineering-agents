@@ -1,0 +1,156 @@
+{
+  "prepared": "2026-11-26",
+  "author": "Arbaaz Khan",
+  "articles": [
+    {
+      "part": 1,
+      "source_edition": 4,
+      "markdown": "part-1/index.md",
+      "frozen_source_sha256": "1f544b2acea7479141fefa41ce018d5f1237e223c88259d09acbb37008fccbf3",
+      "images": [
+        {
+          "file": "assets/images/part-1/figure-1-field.png",
+          "sha256": "08915863fec0357df66277f6d6738ee95ffb5846b3ae0cd0b006eacf4e883a32"
+        },
+        {
+          "file": "assets/images/part-1/equation-1-solenoid.png",
+          "sha256": "e11de5ecf0694ed3ef80f39939e5260bba291baa25b3179eda8bdd53f0bb1888"
+        },
+        {
+          "file": "assets/images/part-1/equation-2-maxwell.png",
+          "sha256": "bc4f4bd134f3f6ff18b6320670fcd0e1803c3e93474764a601faa1e9b2617fa9"
+        },
+        {
+          "file": "assets/images/part-1/equation-3-potential.png",
+          "sha256": "85da561286e7512aae57770f63a5f07a603bc7fa570c3117b55617b83aa0c625"
+        },
+        {
+          "file": "assets/images/part-1/figure-2-axisymmetry.png",
+          "sha256": "1ebda405d9f0c036543e16caab0bd11501a9c191da0865d559027d0846e99152"
+        },
+        {
+          "file": "assets/images/part-1/figure-3-planar.png",
+          "sha256": "df4a17588b9e54f9fbfac6066396830a15d8f1dad43b04ac65db4dbf92354dd1"
+        },
+        {
+          "file": "assets/images/part-1/figure-4-model.png",
+          "sha256": "7bf5c9517698dfd516a343d5d8a5b28f9f36ef9ae4b2cb0fa041eb323af6a663"
+        },
+        {
+          "file": "assets/images/part-1/figure-5-mesh.png",
+          "sha256": "663038bf4b370de886b7a127700293156846e8c4a491c41aa97e396d4591f01e"
+        },
+        {
+          "file": "assets/images/part-1/equation-4-linkage.png",
+          "sha256": "0a148d51dc2acce9c933839cdcea120ed3f042bae7bf54d9fef4a7c2a004af9e"
+        },
+        {
+          "file": "assets/images/part-1/figure-6-centerline.png",
+          "sha256": "5d5c42584e183ef4061b3c322cf4bac40fcf3b59adbe9c284fa107a0d76e8c7a"
+        }
+      ]
+    },
+    {
+      "part": 2,
+      "source_edition": 4,
+      "markdown": "part-2/index.md",
+      "frozen_source_sha256": "2a1cb9c9a21c0751f6e67f034254a7cb5ff9d188ed897a2a03a3590c84bf57c5",
+      "images": [
+        {
+          "file": "assets/images/part-2/p2-v4-equation-1-scaling.png",
+          "sha256": "20b5be3ac656739466b834f3a454cca32dc37aa7fad823d3637768714380b45f"
+        },
+        {
+          "file": "assets/images/part-2/p2-v4-figure-1-loop.png",
+          "sha256": "6f006ac9dfd115b382f0a1eab2db1f51fa552a740150b3d00d24d09f6206dda1"
+        },
+        {
+          "file": "assets/images/part-2/p2-v4-figure-2-results.png",
+          "sha256": "adb4a685626b6f07c01db97b2929fe8a4e8b0810d5e00200f3f12753e702c78b"
+        }
+      ]
+    },
+    {
+      "part": 3,
+      "source_edition": 4,
+      "markdown": "part-3/index.md",
+      "frozen_source_sha256": "a484a02079a57542ba86b075c98c85a0addb214fdda92e8649b7a014cf1846e7",
+      "images": [
+        {
+          "file": "assets/images/part-3/p3-v4-figure-1-levels.png",
+          "sha256": "da49beb068f49e375c779d2df91c2e740db813b9c8fae7a3cc28d14193d96e7b"
+        },
+        {
+          "file": "assets/images/part-3/p3-v4-equation-1-bias.png",
+          "sha256": "0d56cea203337f448276492a9b7d8198895f61cfab808773ee2df9cd8205855d"
+        },
+        {
+          "file": "assets/images/part-3/p3-v4-figure-2-linkage.png",
+          "sha256": "1f5dec7db4fa6e6d2c78ee1c65e842e28498bd516d61d5d1d5c52518ed87b96d"
+        }
+      ]
+    },
+    {
+      "part": 4,
+      "source_edition": 4,
+      "markdown": "part-4/index.md",
+      "frozen_source_sha256": "4dfb000977a50bb3d387eb154c79752aa1c8a408658a7eb22e4029e171a54457",
+      "images": [
+        {
+          "file": "assets/images/part-4/p4-v4-figure-1-model-field.png",
+          "sha256": "909ec5098a3c5c83a0a89b43e48c9b950ffba84c9d7662ac42fdc01a28505732"
+        },
+        {
+          "file": "assets/images/part-4/p4-v4-equation-1-position.png",
+          "sha256": "4c87626e233a251dee57eb2bfdda3d20b8cabcb956c58da4634fdb86a68770bf"
+        },
+        {
+          "file": "assets/images/part-4/p4-v4-figure-2-magnet-law.png",
+          "sha256": "2f32daf32008e6e3a7d1b3d514de81b6a8028ed7dbc84b0b455ac7029b8c00f9"
+        },
+        {
+          "file": "assets/images/part-4/p4-v4-equation-2-material.png",
+          "sha256": "f1ba0163e21727668289dac12cd90ea74a55d397ee54c49434b57c9dd5cb70bc"
+        },
+        {
+          "file": "assets/images/part-4/p4-v4-equation-3-force.png",
+          "sha256": "790fb4814c879b23af03ba5db78ef14c221bbd90353a8a2a01a2672cfd175212"
+        },
+        {
+          "file": "assets/images/part-4/p4-v4-figure-3-results.png",
+          "sha256": "342a062bf802b1705e13e4a5b01a998d19890fcd479db99437e6808271899d2a"
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "source_edition": 3,
+      "markdown": "part-5/index.md",
+      "frozen_source_sha256": "b208e655919475f78fd81b053d0848d2948555cbbcc6646cc662a177456ac088",
+      "images": [
+        {
+          "file": "assets/images/part-5/p5-figure-1-motor.png",
+          "sha256": "9ff8446bc4d5b2e3831371c1caf70db6ec399afe3c82b5a124f8e9335a12ca48"
+        },
+        {
+          "file": "assets/images/part-5/p5-figure-2-dimensions.png",
+          "sha256": "4e55d668d1a76a56a181625d9be0576a2138bad102b739804d9f0dc915d7b5ce"
+        },
+        {
+          "file": "assets/images/part-5/p5-figure-3-linkage.png",
+          "sha256": "99ed89fe02c789f566c7ac00108a43f704165236b9106bc24479253701615311"
+        },
+        {
+          "file": "assets/images/part-5/p5-figure-4-inductance.png",
+          "sha256": "b66798173abd40bb976909bca2d5d82cd52c4ca3fa3d44c3936faae9c3917118"
+        },
+        {
+          "file": "assets/images/part-5/p5-figure-5-permeability.png",
+          "sha256": "a16885a4cdb39c3ce99fc05c836ce384584660090c1ca95accb8209ad1c5de42"
+        }
+      ]
+    }
+  ],
+  "repository": "arbi11/femm-engineering-agents",
+  "site_url": "https://arbi11.github.io/femm-engineering-agents/"
+}

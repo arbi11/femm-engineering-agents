@@ -1,0 +1,7 @@
+quantity,value,unit
+current,1,A
+flux_linkage,0.00064694808837348,Wb-turn
+inductance,0.00064694808837348,H
+center_Br,0,T
+center_Bz,0.0016128641295754,T
+elements,35388,count

@@ -1,0 +1,80 @@
+FEMM ARTICLES 2–4 V4 — COMPANION EXERCISES
+
+The main articles use Python consistently and contain no word-count padding.
+This note holds environment and complete-file instructions.
+
+Native environment
+--------------------
+Use the FEMM 5 container from Article 1, femm-brain-native:tutorial. The pinned
+project checkout used to build it is research_extender at:
+59f79815c6703979201cab0d195f304f70786c8a
+https://github.com/arbi11/research_extender
+
+If the image is not installed, Article 1's setup file gives the build:
+git clone https://github.com/arbi11/research_extender.git femm-tutorial
+cd femm-tutorial
+git checkout 59f79815c6703979201cab0d195f304f70786c8a
+docker build --target femm-build -t femm-brain-native:tutorial \
+  -f femm_assistant/Dockerfile femm_assistant
+
+Solves are run in a read-only container with no external network and a new
+writable result folder. The Python interface is the binding bundled with
+FEMM 5, not the older PyPI pyfemm 0.1.3 package for FEMM 4.2.
+
+Article 2
+-----------
+The tools are in part-2-hands-on/coil_tools.py. Run from the pinned repository
+root so that femm_brain can be imported. Put that companion directory on
+PYTHONPATH, or copy coil_tools.py beside your short example before running it.
+
+For the complete three-case replay, from the repository root:
+python3 /path/to/part-2-hands-on/replay_experiment.py --output work/article-2-v4
+
+Use a new output folder. The script writes predictions and plans before
+execution and checks measured ratios. The results shown in the article are
+the retained v3 three-case native replay; the revised text does not claim a
+new LLM performance evaluation.
+
+Article 3
+-----------
+Change to part-3-hands-on to run the Python snippet from the article. It reads
+graph.json in that folder. The full inspect_graph.py script prints selected
+records and relationships without requiring a solver or a model account:
+python3 inspect_graph.py
+
+The linear magnet-offset plot uses chosen teaching values, not a new native
+simulation. The real workflow/method records and their evidence metadata are
+included separately, so their verification status can be inspected.
+
+Article 4
+-----------
+The complete frozen model is part-4-hands-on/vm270.lua, with its typed plan,
+retained force report and historical numerical controls. A new native replay
+for the v4 field figure is recorded under verification/vm270-replay-2026-11-25.
+Its forces, field CSV hash and solution hash match the retained baseline.
+
+To run the complete model, copy vm270.lua into a new writable directory and
+launch it with FEMM's native Lua launcher, directly or from Python as shown
+in Article 1. The Python subprocess call is:
+
+import subprocess
+subprocess.run(["femm-lua", "-h", "vm270.lua"], check=True)
+
+It writes model.fem, model.ans, metrics.csv and field.csv in the working folder.
+The baseline has 936,611 triangles and is larger than the introductory coil.
+
+With that model and solution available, measure_force.py uses the native
+Python binding to load them and read the magnet and coil forces. It also
+checks the material-definition excerpt on a separate temporary document.
+It does not rerun the field solve or modify the frozen physical model.
+
+The prepared container's binding directory is /opt/femm/share/femm/pyfemm,
+and FEMM_DIR is /opt/femm/bin. The recorded command.json files show the exact
+isolated Docker invocation used for the replay and extraction checks.
+
+Units and scope
+-----------------
+Native forces are stored in newtons; plots and prose use millinewtons.
+The measured targets are ±0.0112815 N and the frozen comparison band is 2%.
+Historical failed and control runs are retained, not replaced by the new
+baseline replay. No new convergence-rate or LLM-success claim is made.
